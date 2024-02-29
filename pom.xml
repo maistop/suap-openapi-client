@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.7.14</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>it.infocamere.suap.sufo.lib</groupId>
+	<artifactId>suap-openapi-client</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>suap-openapi-client</name>
+	<description>Suap openapi generator project</description>
+	<organization>
+		<name>Engineering Ingegneria Informatica S.p.A.</name>
+		<url>http://wwww.eng.it</url>
+	</organization>
+	<licenses>
+		<license>
+			<name></name>
+			<url></url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<id>giuseppe.maisto</id>
+			<name>Giuseppe Maisto</name>
+			<email>giuseppe.maisto@eng.it</email>
+			<url>${project.organization.url}</url>
+			<organization>${project.organization.name}</organization>
+			<organizationUrl>${project.organization.url}</organizationUrl>
+			<roles>
+				<role>Tecnical Manager</role>
+				<role>Developer</role>
+			</roles>
+		</developer>
+	</developers>
+	<properties>
+		<java.version>1.8</java.version>
+		<source.encoding>UTF-8</source.encoding>
+		<reporting.encoding>UTF-8</reporting.encoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.build.timestamp.format>dd-MM-yy-HHmmss</maven.build.timestamp.format>
+	    <maven.compiler.source>${java.version}</maven.compiler.source>
+	    <maven.compiler.target>${java.version}</maven.compiler.target>
+    	<springdoc-version>1.7.0</springdoc-version>
+		<asciidoctor-maven-plugin.version>2.2.1</asciidoctor-maven-plugin.version>
+		<sonar-maven-plugin.version>3.10.0.2594</sonar-maven-plugin.version>
+		<openapi-generator-maven-plugin.version>6.0.0</openapi-generator-maven-plugin.version>
+		<jackson-databind-nullable-version>0.2.6</jackson-databind-nullable-version>
+		<jsr305.version>3.0.2</jsr305.version>
+		<swagger-annotations.version>2.2.18</swagger-annotations.version>
+		<jaxb-api.version>2.3.1</jaxb-api.version>
+		<dependency-check-maven.version>6.0.5</dependency-check-maven.version>
+		<jakarta.annotation-api.version>2.0.0</jakarta.annotation-api.version>
+		<jakarta.servlet-api.version>5.0.0</jakarta.servlet-api.version>
+		<jakarta.validation-api.version>3.0.2</jakarta.validation-api.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		
+		<!--Librerie per codice autogenerato openapi -->
+		<dependency>
+			<groupId>org.openapitools</groupId>
+			<artifactId>jackson-databind-nullable</artifactId>
+			<version>${jackson-databind-nullable-version}</version>
+		</dependency>
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>openapi-generator-maven-plugin</artifactId>
+            <version>${openapi-generator-maven-plugin.version}</version>
+        </dependency>
+		<dependency>
+		  <groupId>com.google.code.findbugs</groupId>
+		  <artifactId>jsr305</artifactId>
+		  <version>${jsr305.version}</version>
+		</dependency>
+		<!-- OpenAPI -->
+		<dependency>
+			<groupId>io.swagger.core.v3</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>${swagger-annotations.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>io.swagger.core.v3</groupId>
+		    <artifactId>swagger-models</artifactId>
+		    <version>${swagger-annotations.version}</version>
+		</dependency>
+
+		<!-- Jakarta -->
+		<!--
+		<dependency>
+		    <groupId>jakarta.annotation</groupId>
+		    <artifactId>jakarta.annotation-api</artifactId>
+		    <version>${jakarta.annotation-api.version}</version>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>jakarta.servlet</groupId>
+		    <artifactId>jakarta.servlet-api</artifactId>
+		    <version>${jakarta.servlet-api.version}</version>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>jakarta.validation</groupId>
+		    <artifactId>jakarta.validation-api</artifactId>
+		    <version>${jakarta.validation-api.version}</version>
+		</dependency>
+		-->
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<image>
+						<builder>paketobuildpacks/builder-jammy-base:latest</builder>
+					</image>
+				</configuration>
+			</plugin>
+			
+			
+			
+			<!-- Generazione del codice client OpenAPI -->
+			<!-- See https://openapi-generator.tech/docs/generators/java/ for config options -->
+			<plugin>
+			  <groupId>org.openapitools</groupId>
+			  <artifactId>openapi-generator-maven-plugin</artifactId>
+			  <version>${openapi-generator-maven-plugin.version}</version>
+				<executions>
+
+					<!-- BackOffice to FrontOffice (botofo-client-lib) -->
+					<execution>
+						<id>bo_to_fo-api</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/src/main/resources/openapi/bo_to_fo.yaml</inputSpec>
+							<generatorName>java</generatorName>
+							<library>resttemplate</library>
+							<java8>true</java8>
+							<configOptions>
+								<sourceFolder>src/main/java</sourceFolder>
+								<dateLibrary>java8</dateLibrary>
+								<apiPackage>it.infocamere.suap.sufo.lib.api</apiPackage>
+								<modelPackage>it.infocamere.suap.sufo.lib.model</modelPackage>
+								<invokerPackage>it.infocamere.suap.sufo.lib.client</invokerPackage>
+                                <openApiNullable>false</openApiNullable>
+                                <useBeanValidation>false</useBeanValidation>
+								<hideGenerationTimestamp>true</hideGenerationTimestamp>
+								<useJakartaEe>false</useJakartaEe>
+							</configOptions>
+						</configuration>
+					</execution>
+					
+					<!-- Catalogo to FrontOffice (catalogotofo-client-lib) -->
+					<execution>
+						<id>catalogo-ssu_to_fo-api</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/src/main/resources/openapi/catalogo-ssu_to_fo.yaml</inputSpec>
+							<generatorName>java</generatorName>
+							<library>resttemplate</library>
+							<java8>true</java8>
+							<configOptions>
+								<sourceFolder>src/main/java</sourceFolder>
+								<dateLibrary>java8</dateLibrary>
+								<library>resttemplate</library>
+								<apiPackage>it.infocamere.suap.sufo.cssufo.api</apiPackage>
+								<modelPackage>it.infocamere.suap.sufo.cssufo.model</modelPackage>
+								<invokerPackage>it.infocamere.suap.sufo.cssufo.client</invokerPackage>
+                                <openApiNullable>false</openApiNullable>
+                                <useBeanValidation>false</useBeanValidation>
+								<hideGenerationTimestamp>true</hideGenerationTimestamp>
+								<useJakartaEe>false</useJakartaEe>
+							</configOptions>
+						</configuration>
+					</execution>
+					
+					<!-- ComUnica to FrontOffice (cutofo-client-lib) -->
+					<execution>
+						<id>cu_to_fo-api</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/src/main/resources/openapi/cu_to_fo.yaml</inputSpec>
+							<generatorName>java</generatorName>
+							<library>resttemplate</library>
+							<java8>true</java8>
+							<configOptions>
+								<sourceFolder>src/main/java</sourceFolder>
+								<dateLibrary>java8</dateLibrary>
+								<library>resttemplate</library>
+								<apiPackage>it.infocamere.suap.sufo.cufo.api</apiPackage>
+								<modelPackage>it.infocamere.suap.sufo.cufo.model</modelPackage>
+								<invokerPackage>it.infocamere.suap.sufo.cufo.client</invokerPackage>
+                                <openApiNullable>false</openApiNullable>
+                                <useBeanValidation>false</useBeanValidation>
+								<hideGenerationTimestamp>true</hideGenerationTimestamp>
+								<useJakartaEe>false</useJakartaEe>
+							</configOptions>
+						</configuration>
+					</execution>
+					
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
