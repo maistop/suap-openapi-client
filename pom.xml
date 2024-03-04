@@ -151,24 +151,23 @@
 			  <version>${openapi-generator-maven-plugin.version}</version>
 				<executions>
 
-					<!-- BackOffice to FrontOffice (botofo-client-lib) -->
+					<!-- SSU to BO -->
 					<execution>
-						<id>bo_to_fo-api</id>
+						<id>catalogo-ssu_to_bo</id>
 						<phase>generate-sources</phase>
 						<goals>
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<inputSpec>${project.basedir}/src/main/resources/openapi/bo_to_fo.yaml</inputSpec>
+							<inputSpec>${project.basedir}/src/main/resources/openapi/catalogo-ssu_to_bo.yaml</inputSpec>
 							<generatorName>java</generatorName>
 							<library>resttemplate</library>
-							<java8>true</java8>
 							<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>
 								<dateLibrary>java8</dateLibrary>
-								<apiPackage>it.infocamere.suap.sufo.lib.api</apiPackage>
-								<modelPackage>it.infocamere.suap.sufo.lib.model</modelPackage>
-								<invokerPackage>it.infocamere.suap.sufo.lib.client</invokerPackage>
+								<apiPackage>it.infocamere.suap.sucr.ssutobo.api</apiPackage>
+								<modelPackage>it.infocamere.suap.sucr.ssutobo.model</modelPackage>
+								<invokerPackage>it.infocamere.suap.sucr.ssutobo.client</invokerPackage>
                                 <openApiNullable>false</openApiNullable>
                                 <useBeanValidation>false</useBeanValidation>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
@@ -177,25 +176,24 @@
 						</configuration>
 					</execution>
 					
-					<!-- Catalogo to FrontOffice (catalogotofo-client-lib) -->
+					<!-- ET to BO-->
 					<execution>
-						<id>catalogo-ssu_to_fo-api</id>
+						<id>et_to_bo</id>
 						<phase>generate-sources</phase>
 						<goals>
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<inputSpec>${project.basedir}/src/main/resources/openapi/catalogo-ssu_to_fo.yaml</inputSpec>
+							<inputSpec>${project.basedir}/src/main/resources/openapi/et_to_bo.yaml</inputSpec>
 							<generatorName>java</generatorName>
 							<library>resttemplate</library>
-							<java8>true</java8>
 							<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>
 								<dateLibrary>java8</dateLibrary>
 								<library>resttemplate</library>
-								<apiPackage>it.infocamere.suap.sufo.cssufo.api</apiPackage>
-								<modelPackage>it.infocamere.suap.sufo.cssufo.model</modelPackage>
-								<invokerPackage>it.infocamere.suap.sufo.cssufo.client</invokerPackage>
+								<apiPackage>it.infocamere.suap.sucr.ettobo.api</apiPackage>
+								<modelPackage>it.infocamere.suap.sucr.ettobo.model</modelPackage>
+								<invokerPackage>it.infocamere.suap.sucr.ettobo.client</invokerPackage>
                                 <openApiNullable>false</openApiNullable>
                                 <useBeanValidation>false</useBeanValidation>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
@@ -204,27 +202,52 @@
 						</configuration>
 					</execution>
 					
-					<!-- ComUnica to FrontOffice (cutofo-client-lib) -->
+					<!-- FO to BO -->
 					<execution>
-						<id>cu_to_fo-api</id>
+						<id>fo_to_bo</id>
 						<phase>generate-sources</phase>
 						<goals>
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<inputSpec>${project.basedir}/src/main/resources/openapi/cu_to_fo.yaml</inputSpec>
+							<inputSpec>${project.basedir}/src/main/resources/openapi/fo_to_bo.yaml</inputSpec>
 							<generatorName>java</generatorName>
 							<library>resttemplate</library>
-							<java8>true</java8>
 							<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>
 								<dateLibrary>java8</dateLibrary>
 								<library>resttemplate</library>
-								<apiPackage>it.infocamere.suap.sufo.cufo.api</apiPackage>
-								<modelPackage>it.infocamere.suap.sufo.cufo.model</modelPackage>
-								<invokerPackage>it.infocamere.suap.sufo.cufo.client</invokerPackage>
+								<apiPackage>it.infocamere.suap.sucr.fotobo.api</apiPackage>
+								<modelPackage>it.infocamere.suap.sucr.fotobo.model</modelPackage>
+								<invokerPackage>it.infocamere.suap.sucr.fotobo.client</invokerPackage>
                                 <openApiNullable>false</openApiNullable>
                                 <useBeanValidation>false</useBeanValidation>
+								<hideGenerationTimestamp>true</hideGenerationTimestamp>
+								<useJakartaEe>false</useJakartaEe>
+							</configOptions>
+						</configuration>
+					</execution>
+
+					<!-- RegistroImpresa to BO -->
+					<execution>
+						<id>ri_to_bo</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/src/main/resources/openapi/ri_to_bo.yaml</inputSpec>
+							<generatorName>java</generatorName>
+							<library>resttemplate</library>
+							<configOptions>
+								<sourceFolder>src/main/java</sourceFolder>
+								<dateLibrary>java8</dateLibrary>
+								<library>resttemplate</library>
+								<apiPackage>it.infocamere.suap.sucr.ritobo.api</apiPackage>
+								<modelPackage>it.infocamere.suap.sucr.ritobo.model</modelPackage>
+								<invokerPackage>it.infocamere.suap.sucr.ritobo.client</invokerPackage>
+								<openApiNullable>false</openApiNullable>
+								<useBeanValidation>false</useBeanValidation>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 								<useJakartaEe>false</useJakartaEe>
 							</configOptions>
