@@ -271,6 +271,7 @@
 							<inputSpec>${project.basedir}/src/main/resources/openapi/catalogo-ssu_meta.yaml</inputSpec>
 							<generatorName>java</generatorName>
 							<library>resttemplate</library>
+							<skipValidateSpec>true</skipValidateSpec>
 							<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>
 								<dateLibrary>java8</dateLibrary>
@@ -282,8 +283,6 @@
 								<useBeanValidation>false</useBeanValidation>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 								<useJakartaEe>false</useJakartaEe>
-								<validateSpec>false</validateSpec>
-                				<skipValidateSpec>true</skipValidateSpec>
 							</configOptions>
 						</configuration>
 					</execution>
