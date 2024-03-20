@@ -1,0 +1,786 @@
+openapi: 3.0.1
+info:
+  title: Servizio pratiche
+  description: PDND Back-end API's
+  contact:
+    name: InfoCamere S.C.p.A.
+    url: https://www.infocamere.it
+  version: v1
+servers:
+- url: https://pdnd-back-sv.ossv.intra.infocamere.it
+  description: Generated server url
+tags:
+- name: Sportello
+  description: Recupero informazioni sportello
+- name: Pratiche
+  description: Recupero informazioni pratiche
+- name: Utility
+  description: Utility
+paths:
+  /api/v1/token:
+    post:
+      tags:
+      - Utility
+      summary: Token JWT PDND
+      operationId: get-token-pdnd
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/v1_token_body'
+        required: true
+      responses:
+        "200":
+          description: Successful data retrieval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PDNDClientCredentials'
+        "400":
+          description: Bad request parameters
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        "413":
+          description: Payload too large
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        "500":
+          description: Error getting result
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+  /api/v1/utility/encode/{codSportello}:
+    get:
+      tags:
+      - Utility
+      description: Codifica codice sportello
+      operationId: getPratiche
+      parameters:
+      - name: codSportello
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: Successful data retrieval
+          content:
+            '*/*':
+              schema:
+                type: string
+        "400":
+          description: Bad request parameters
+          content:
+            '*/*':
+              schema:
+                type: string
+        "500":
+          description: Error getting result
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/v1/utility/decode/{encodedCSportello}:
+    get:
+      tags:
+      - Utility
+      description: Decodifica codice sportello
+      operationId: getPratiche_1
+      parameters:
+      - name: encodedCSportello
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful data retrieval
+          content:
+            '*/*':
+              schema:
+                type: integer
+                format: int32
+        "400":
+          description: Bad request parameters
+          content:
+            '*/*':
+              schema:
+                type: integer
+                format: int32
+        "500":
+          description: Error getting result
+          content:
+            '*/*':
+              schema:
+                type: integer
+                format: int32
+  /api/v1/sportello/{codSportello}:
+    get:
+      tags:
+      - Sportello
+      summary: Dettaglio sportello
+      operationId: dettaglio-sportello
+      parameters:
+      - name: codSportello
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: Successful data retrieval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sportello'
+        "400":
+          description: Bad request parameters
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        "404":
+          description: Entity not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        "500":
+          description: Error getting result
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+  /api/v1/pratiche/{codSportello}:
+    get:
+      tags:
+      - Pratiche
+      summary: Lista pratiche
+      operationId: lista-pratiche
+      parameters:
+      - name: codSportello
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      - name: tipoProcedimento
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/TipoProcedimento'
+      - name: codiceFiscale
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          pattern: "^(?:([a-zA-Z]{6}[0-9]{2}[abcdehlmprstABCDEHLMPRST]{1}[0-9]{2}([a-zA-Z]{1}[0-9]{3})[a-zA-Z]{1})|[0-9]{11})$"
+          type: string
+      - name: statoPratica
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/StatoPratica'
+      - name: dataRicezioneDa
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: date
+      - name: dataRicezioneA
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: date
+      - name: page
+        in: query
+        description: Zero-based page index (0..N)
+        required: false
+        style: form
+        explode: true
+        schema:
+          minimum: 0
+          type: integer
+          default: 0
+      - name: size
+        in: query
+        description: The size of the page to be returned
+        required: false
+        style: form
+        explode: true
+        schema:
+          minimum: 1
+          type: integer
+          default: 1000
+      - name: sort
+        in: query
+        description: "Sorting criteria in the format: property,(asc|desc). Default\
+          \ sort order is ascending. Multiple sort criteria are supported."
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+          default:
+          - "dtDataProtocollo,DESC"
+      responses:
+        "200":
+          description: Successful data retrieval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PraticaList'
+        "400":
+          description: Bad request parameters
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        "500":
+          description: Error getting result
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+  /api/v1/pratiche/{codSportello}/{idPratica}:
+    get:
+      tags:
+      - Pratiche
+      summary: Dettaglio pratica
+      operationId: dettaglio-pratica
+      parameters:
+      - name: codSportello
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      - name: idPratica
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful data retrieval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PraticaDettaglio'
+        "400":
+          description: Bad request parameters
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        "404":
+          description: Entity not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        "500":
+          description: Error getting result
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+  /api/v1/pratiche/statistiche/{codSportello}:
+    get:
+      tags:
+      - Pratiche
+      summary: Statistiche pratiche
+      operationId: statistiche-pratiche
+      parameters:
+      - name: codSportello
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: Successful data retrieval
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Statistiche'
+        "400":
+          description: Bad request parameters
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        "404":
+          description: Entity not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        "500":
+          description: Error getting result
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        "503":
+          description: Service unavailable
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        "504":
+          description: Gateway Timeout
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+  /api/v1/autorizzazioni/{codSportello}:
+    get:
+      tags:
+      - Pratiche
+      summary: Lista autorizzazioni impresa/soggetto
+      operationId: lista-autorizzazioni-codice-fiscale
+      parameters:
+      - name: codSportello
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      - name: codFiscale
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: Zero-based page index (0..N)
+        required: false
+        style: form
+        explode: true
+        schema:
+          minimum: 0
+          type: integer
+          default: 0
+      - name: size
+        in: query
+        description: The size of the page to be returned
+        required: false
+        style: form
+        explode: true
+        schema:
+          minimum: 1
+          type: integer
+          default: 1000
+      - name: sort
+        in: query
+        description: "Sorting criteria in the format: property,(asc|desc). Default\
+          \ sort order is ascending. Multiple sort criteria are supported."
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+          default:
+          - "dtOraDataChiusura,DESC"
+      responses:
+        "200":
+          description: Successful data retrieval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutorizzazioneList'
+        "400":
+          description: Bad request parameters
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        "500":
+          description: Error getting result
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+components:
+  schemas:
+    PDNDClientCredentials:
+      type: object
+      properties:
+        access_token:
+          type: string
+        expires_in:
+          type: integer
+          format: int64
+        token_type:
+          type: string
+    ProblemDetail:
+      type: object
+      properties:
+        type:
+          type: string
+          format: uri
+        title:
+          type: string
+        status:
+          type: integer
+          format: int32
+        detail:
+          type: string
+        instance:
+          type: string
+          format: uri
+        parameters:
+          type: object
+          additionalProperties:
+            type: object
+    ClientTokenData:
+      required:
+      - authorizationServerUrl
+      - jwtData
+      - keystoreData
+      type: object
+      properties:
+        authorizationServerUrl:
+          type: string
+        jwtData:
+          $ref: '#/components/schemas/JWTData'
+        keystoreData:
+          $ref: '#/components/schemas/KeystoreData'
+    JWTData:
+      required:
+      - aud
+      - iss
+      - keyId
+      - purposeId
+      - subject
+      type: object
+      properties:
+        keyId:
+          type: string
+        iss:
+          type: string
+        subject:
+          type: string
+        aud:
+          type: string
+        purposeId:
+          type: string
+    KeystoreData:
+      required:
+      - keyAlias
+      - pwd
+      - pwdPrivateKey
+      type: object
+      properties:
+        pwd:
+          type: string
+        keyAlias:
+          type: string
+        pwdPrivateKey:
+          type: string
+    Sportello:
+      type: object
+      properties:
+        codiceCatastale:
+          type: string
+        nomeComune:
+          type: string
+        nomeSportello:
+          type: string
+        siglaProvinciaSportello:
+          type: string
+        logo:
+          type: string
+    Ente:
+      type: object
+      properties:
+        denominazione:
+          type: string
+        categoria:
+          type: string
+        recapito:
+          type: string
+    Indirizzo:
+      type: object
+      properties:
+        denominazioneIndirizzo:
+          type: string
+        cap:
+          type: string
+        comune:
+          type: string
+        siglaProvincia:
+          type: string
+    Meta:
+      type: object
+      properties:
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        numberOfElements:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        page:
+          type: integer
+          format: int32
+    PraticaList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PraticaSintesi'
+        meta:
+          $ref: '#/components/schemas/Meta'
+    PraticaSintesi:
+      type: object
+      properties:
+        origine:
+          type: string
+        idPratica:
+          type: string
+        tipo:
+          type: string
+        richiedente:
+          type: string
+        impianto:
+          $ref: '#/components/schemas/Indirizzo'
+        adempimenti:
+          type: array
+          items:
+            $ref: '#/components/schemas/Procedimento'
+        statoPratica:
+          type: string
+        dataRicezione:
+          type: string
+          format: date
+    Procedimento:
+      type: object
+      properties:
+        titolo:
+          type: string
+        classificazione:
+          type: string
+        entiDestinatari:
+          type: array
+          items:
+            $ref: '#/components/schemas/Ente'
+    TipoProcedimento:
+      type: string
+      description: "tipoProcedimento: \n* `SA` - silenzio-assenso\n* `SC` - SCIA\n\
+        * `CO` - comunicazione\n* `OR` - ordinario\n"
+      enum:
+      - SA
+      - SC
+      - CO
+      - OR
+    StatoPratica:
+      type: string
+      description: "statoPratica: \n* `SRV` - Servizio\n* `ERR` - Errore\n* `ARR`\
+        \ - Arrivo\n* `PRT` - Protocollata\n* `RIC` - Da Inoltrare\n* `CHI` - Chiusura\
+        \ negativa\n* `CHP` - Chiusura positiva\n* `ANN` - Annullata\n* `COM` - Comunicazione\n\
+        * `IRC` - Sospesa\n* `CNF` - Conferenza servizi\n* `CON` - Console\n"
+      enum:
+      - SRV
+      - ERR
+      - ARR
+      - PRT
+      - RIC
+      - CHI
+      - CHP
+      - ANN
+      - COM
+      - IRC
+      - CNF
+      - CON
+    DatiPratica:
+      type: object
+      properties:
+        codiceSportello:
+          type: integer
+          format: int32
+        idPratica:
+          type: string
+        origine:
+          type: string
+        oggetto:
+          type: string
+        domicilioElettronico:
+          type: string
+        statoPratica:
+          type: string
+        tipoProcedimento:
+          type: string
+        tipoIntervento:
+          type: string
+        dataRicezione:
+          type: string
+          format: date-time
+        protocollo:
+          type: string
+    Impresa:
+      type: object
+      properties:
+        ragioneSociale:
+          type: string
+        naturaGiuridica:
+          type: string
+        codiceFiscale:
+          type: string
+        partitaIva:
+          type: string
+        identificativoRea:
+          type: string
+        recapiti:
+          $ref: '#/components/schemas/Indirizzo'
+        legaleRappresentante:
+          $ref: '#/components/schemas/Persona'
+    Persona:
+      type: object
+      properties:
+        nome:
+          type: string
+        cognome:
+          type: string
+        codiceFiscale:
+          type: string
+        pec:
+          type: string
+        telefono:
+          type: string
+        qualifica:
+          type: string
+    PraticaDettaglio:
+      type: object
+      properties:
+        datiPratica:
+          $ref: '#/components/schemas/DatiPratica'
+        mittente:
+          $ref: '#/components/schemas/Persona'
+        datiImpresa:
+          $ref: '#/components/schemas/Impresa'
+        datiProcedimento:
+          type: array
+          items:
+            $ref: '#/components/schemas/Procedimento'
+    Metadata:
+      type: object
+      properties:
+        colIndex:
+          type: integer
+          format: int32
+        colType:
+          type: string
+        colName:
+          type: string
+    QueryInfo:
+      type: object
+      properties:
+        totalRows:
+          type: integer
+          format: int32
+    Statistiche:
+      type: object
+      properties:
+        type:
+          type: string
+        resultset:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+        queryInfo:
+          $ref: '#/components/schemas/QueryInfo'
+        metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/Metadata'
+    AutorizzazioneList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AutorizzazioneSintesi'
+        meta:
+          $ref: '#/components/schemas/Meta'
+    AutorizzazioneSintesi:
+      type: object
+      properties:
+        idPratica:
+          type: string
+        richiedente:
+          type: string
+        indirizzo:
+          $ref: '#/components/schemas/Indirizzo'
+        adempimenti:
+          type: array
+          items:
+            $ref: '#/components/schemas/Procedimento'
+        dataRicezione:
+          type: string
+          format: date
+        dataRilascioAutorizzazione:
+          type: string
+          format: date
+    v1_token_body:
+      required:
+      - clientTokenData
+      - keyStoreFile
+      type: object
+      properties:
+        keyStoreFile:
+          type: string
+          format: binary
+        clientTokenData:
+          $ref: '#/components/schemas/ClientTokenData'

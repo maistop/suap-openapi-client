@@ -257,30 +257,8 @@ components:
                     $ref: "#/components/headers/Agid-JWT-Signature"
     schemas:
         cui:
-            type: object
-            description: codice unico dell'istanza
-            required:
-                - context
-                - data
-                - progressive
-                - uuid
-            properties:
-                context:
-                    title: contesto dell'istanza
-                    type: string
-                data:
-                    title: data emissione cui
-                    type: string
-                    format: date
-                
-                progressivo:
-                    title: numero progressivo a rotazione annuale
-                    type: string
+            $ref: https://raw.githubusercontent.com/AgID/suap-gt-specifiche/to_interoperabilita-protocols/to_interoperabilita/schema/cui-schema.yaml
 
-                uuid:
-                    title: UUID chiave del CUI
-                    type: string
-                    
         Error:
             type: object
             description: codice e descrizione condizione di errore

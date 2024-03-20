@@ -118,6 +118,8 @@ paths:
                 - bearerAuth: []
                   Agid-JWT-Signature: []
 
+
+
     /send_instance:
         description: Invio riferimenti istanza
         post:
@@ -142,6 +144,7 @@ paths:
                 - bearerAuth: []
                   Agid-JWT-Signature: []
 
+    
     /instance/{cui_uuid}/document/{resource_id}:
         get:
             description: | 
@@ -233,6 +236,9 @@ paths:
                 - bearerAuth: []
                   Agid-JWT-Signature: []
 
+
+    
+
 components:
     responses:
         OKRequest:
@@ -281,66 +287,10 @@ components:
 
     schemas:
         cui:
-            type: object
-            description: codice unico dell'istanza
-            required:
-                - context
-                - data
-                - progressive
-                - uuid
-            properties:
-                context:
-                    title: contesto dell'istanza
-                    type: string
-                data:
-                    title: data emissione cui
-                    type: string
-                    format: date
-                
-                progressivo:
-                    title: numero progressivo a rotazione annuale
-                    type: string
+            $ref: https://raw.githubusercontent.com/AgID/suap-gt-specifiche/to_interoperabilita-protocols/to_interoperabilita/schema/cui-schema.yaml
 
-                uuid:
-                    title: UUID chiave del CUI
-                    type: string
-                    
         InstanceIndex:
-                    type: array
-                    description: indice istanza
-                    items:
-                        type: object
-                        required:
-                        - code
-                        - ref
-                        - resource_id
-                        - hash
-                        - alg_hash
-                        properties:
-                            code:                            
-                                title: codice della fattispecie presente nel Catalogo
-                                type: string
-                                minLength: 1
-                            ref:                            
-                                title: riferimento all'elemento dell'istanza relativo al procedimento
-                                type: string
-                                minLength: 1
-                            resource_id:                            
-                                title: id della risorsa, univoco per erogatore e CUI.UUID
-                                type: string
-                                minLength: 1
-                            hash:                            
-                                title: hash dell'elemento dell'istanza relativo al procedimento
-                                type: string
-                                minLength: 1
-                            alg_hash:                                
-                                title: algoritmo hash applicato
-                                type: string
-                                enum:
-                                - S256
-                                - S384
-                                - S512
-
+                    $ref: https://raw.githubusercontent.com/AgID/suap-gt-specifiche/to_interoperabilita-protocols/to_interoperabilita/schema/instance-index-schema.yaml
         Error:
             type: object
             description: codice e descrizione condizione di errore

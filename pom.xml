@@ -152,6 +152,7 @@
 				<executions>
 
 					<!-- SSU to BO -->
+					<!--
 					<execution>
 						<id>catalogo-ssu_to_bo</id>
 						<phase>generate-sources</phase>
@@ -165,9 +166,9 @@
 							<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>
 								<dateLibrary>java8</dateLibrary>
-								<apiPackage>it.infocamere.suap.sucr.ssutobo.api</apiPackage>
-								<modelPackage>it.infocamere.suap.sucr.ssutobo.model</modelPackage>
-								<invokerPackage>it.infocamere.suap.sucr.ssutobo.client</invokerPackage>
+								<apiPackage>it.infocamere.suap.sucr.lib.api</apiPackage>
+								<modelPackage>it.infocamere.suap.sucr.lib.model</modelPackage>
+								<invokerPackage>it.infocamere.suap.sucr.lib.client</invokerPackage>
                                 <openApiNullable>false</openApiNullable>
                                 <useBeanValidation>false</useBeanValidation>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
@@ -175,8 +176,9 @@
 							</configOptions>
 						</configuration>
 					</execution>
-					
+					-->
 					<!-- ET to BO-->
+					<!--
 					<execution>
 						<id>et_to_bo</id>
 						<phase>generate-sources</phase>
@@ -191,9 +193,9 @@
 								<sourceFolder>src/main/java</sourceFolder>
 								<dateLibrary>java8</dateLibrary>
 								<library>resttemplate</library>
-								<apiPackage>it.infocamere.suap.sucr.ettobo.api</apiPackage>
-								<modelPackage>it.infocamere.suap.sucr.ettobo.model</modelPackage>
-								<invokerPackage>it.infocamere.suap.sucr.ettobo.client</invokerPackage>
+								<apiPackage>it.infocamere.suap.sucr.et.api</apiPackage>
+								<modelPackage>it.infocamere.suap.sucr.et.model</modelPackage>
+								<invokerPackage>it.infocamere.suap.sucr.et.client</invokerPackage>
                                 <openApiNullable>false</openApiNullable>
                                 <useBeanValidation>false</useBeanValidation>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
@@ -201,8 +203,9 @@
 							</configOptions>
 						</configuration>
 					</execution>
-					
+					-->
 					<!-- FO to BO -->
+					<!--
 					<execution>
 						<id>fo_to_bo</id>
 						<phase>generate-sources</phase>
@@ -217,9 +220,9 @@
 								<sourceFolder>src/main/java</sourceFolder>
 								<dateLibrary>java8</dateLibrary>
 								<library>resttemplate</library>
-								<apiPackage>it.infocamere.suap.sucr.fotobo.api</apiPackage>
-								<modelPackage>it.infocamere.suap.sucr.fotobo.model</modelPackage>
-								<invokerPackage>it.infocamere.suap.sucr.fotobo.client</invokerPackage>
+								<apiPackage>it.infocamere.suap.sucr.fo.api</apiPackage>
+								<modelPackage>it.infocamere.suap.sucr.fo.model</modelPackage>
+								<invokerPackage>it.infocamere.suap.sucr.fo.client</invokerPackage>
                                 <openApiNullable>false</openApiNullable>
                                 <useBeanValidation>false</useBeanValidation>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
@@ -227,8 +230,9 @@
 							</configOptions>
 						</configuration>
 					</execution>
-
+					-->
 					<!-- RegistroImpresa to BO -->
+					<!--
 					<execution>
 						<id>ri_to_bo</id>
 						<phase>generate-sources</phase>
@@ -243,13 +247,43 @@
 								<sourceFolder>src/main/java</sourceFolder>
 								<dateLibrary>java8</dateLibrary>
 								<library>resttemplate</library>
-								<apiPackage>it.infocamere.suap.sucr.ritobo.api</apiPackage>
-								<modelPackage>it.infocamere.suap.sucr.ritobo.model</modelPackage>
-								<invokerPackage>it.infocamere.suap.sucr.ritobo.client</invokerPackage>
+								<apiPackage>it.infocamere.suap.sucr.ri.api</apiPackage>
+								<modelPackage>it.infocamere.suap.sucr.ri.model</modelPackage>
+								<invokerPackage>it.infocamere.suap.sucr.ri.client</invokerPackage>
 								<openApiNullable>false</openApiNullable>
 								<useBeanValidation>false</useBeanValidation>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 								<useJakartaEe>false</useJakartaEe>
+							</configOptions>
+						</configuration>
+					</execution>
+					-->
+					
+					<!-- Catalogo-ssu-metadati -->
+					
+					<execution>
+						<id>catalogo-ssu_meta</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/src/main/resources/openapi/catalogo-ssu_meta.yaml</inputSpec>
+							<generatorName>java</generatorName>
+							<library>resttemplate</library>
+							<configOptions>
+								<sourceFolder>src/main/java</sourceFolder>
+								<dateLibrary>java8</dateLibrary>
+								<library>resttemplate</library>
+								<apiPackage>it.infocamere.suap.cssumeta.lib.api</apiPackage>
+								<modelPackage>it.infocamere.suap.cssumeta.lib.model</modelPackage>
+								<invokerPackage>it.infocamere.suap.cssumeta.lib.client</invokerPackage>
+								<openApiNullable>false</openApiNullable>
+								<useBeanValidation>false</useBeanValidation>
+								<hideGenerationTimestamp>true</hideGenerationTimestamp>
+								<useJakartaEe>false</useJakartaEe>
+								<validateSpec>false</validateSpec>
+                				<skipValidateSpec>true</skipValidateSpec>
 							</configOptions>
 						</configuration>
 					</execution>
