@@ -164,7 +164,7 @@ components:
                 - event
             properties:
                 cui:
-                    $ref: "#/components/schemas/cui
+                    $ref: "#/components/schemas/cui"
                 instance_descriptor_version:
                     type: string
                 event:
