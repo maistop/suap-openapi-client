@@ -1,0 +1,110 @@
+openapi: 3.0.3
+
+info:
+    title: FrontOffice SUAP to BackOffice SUAP
+    version: 1.0.0
+    description: |-
+        API rese disponibili da FrontOffice SUAP a BackOffice SUAP per la funzionalità di mapping codice Catalogo - Codice Intervento
+
+paths:
+    /codice_intervento:
+        get:
+            description: | 
+                Recupero del codice intervento per un determinato adempimento.
+            
+            parameters:
+              - name: usecase_proceedings_code
+                in: query
+                required: true
+                schema:
+                  type: string
+              - name: usecase_proceedings_version
+                in: query
+                required: true
+                schema:
+                  type: string
+              - name: cod_catastale
+                in: query
+                required: true
+                schema:
+                  type: string
+
+            responses:
+                "200":
+                    $ref: "#/components/responses/OKResponse"
+                "400":
+                    $ref: "#/components/responses/BadRequest"
+                "401":
+                    $ref: "#/components/responses/Unauthorized"
+                "404":
+                    description: risorsa non trovata
+                "500":
+                    $ref: "#/components/responses/ServerError"
+                "503":
+                    $ref: "#/components/responses/ServiceUnavaliable"
+
+components:    
+    responses:
+        OKResponse:
+            description: Richiesta completata con successo
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/OKResponse"
+        BadRequest:
+            description: Forma della richiesta non conforme alla specifica
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/Error"
+
+        ServiceUnavaliable:
+            description: Servizio non disponibile
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/Error"
+        Unauthorized:
+            description: Richiesta non autorizzata
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/Error"
+        ServerError:
+            description: Errore processamento richiesta
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/Error"
+
+    schemas:
+  
+        OKResponse:
+            type: object
+            description: codice e descrizione condizione di errore
+            properties:
+                codice_class_fdi:
+                    type: string
+            required:
+                - codice_class_fdi
+  
+        Error:
+            type: object
+            description: codice e descrizione condizione di errore
+            properties:
+                code:
+                    type: string
+                message:
+                    type: string
+            required:
+                - code
+                - message
+
+    securitySchemes:
+        bearerAuth:
+            description: JWT token
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
+security:
+  - bearerAuth: []
