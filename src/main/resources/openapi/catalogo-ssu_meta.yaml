@@ -41,7 +41,7 @@ paths:
         - name: municipality
           in: query
           description: paramentro di filtering sul comune richiesto, non valorizzato per richiedere l'intero set
-          required: true
+          required: false
           schema:
             type: string
 
@@ -56,13 +56,13 @@ paths:
                   type: object
                   required:
                     - typology
-                    - lifevent
+                    - lifeevent
                     - municipality
                   properties:
                     typology:
                       description: tipologia del procedimento (es. esercizio di vicinato, grande/media struttura di vendita)
                       type: string
-                    lifevent:
+                    lifeevent:
                       description: evento della vita relativo al procedimento (apertura, ampliamento, subingresso,etc.)
                       type: string
                     municipality:
@@ -95,8 +95,6 @@ paths:
       tags:
         - Lookup
 
- 
-
   /proceedings:
     get:
       description: |
@@ -105,13 +103,11 @@ paths:
         - in: query
           name: typology
           description: tipologia del procedimento (es. esercizio di vicinato, grande/media struttura di vendita)
-          required: true
           schema:
             type: string
         - name: lifeevent
           in: query
           description: Evento della vita relativo al procedimento (apertura, ampliamento, subingresso,etc.)
-          required: true
           schema:
             type: string
         - name: municipality
@@ -153,8 +149,6 @@ paths:
       tags:
         - Proceedings
 
- 
- 
   /proceeding/{proceeding_id}/{proceeding_version}/usecase-proceedings:
     get:
       description: |
@@ -235,7 +229,7 @@ paths:
               schema:
                 type: array
                 items:
-                  type: object 
+                  type: object
                   required:
                     - attachment
                     - mandatary
@@ -432,8 +426,6 @@ paths:
       tags:
         - UseCases
 
-  
-
   /form/{form_id}/{form_version}/xsd:
     get:
       description: |
@@ -461,7 +453,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResourceEntity"
-             
+
 
           headers:
             Agid-JWT-Signature:
@@ -635,10 +627,10 @@ paths:
       tags:
         - Attachments
 
-  /competent-administration/{competent_administration_ipacode}/{competent_administration_code}/{competent_administration_version}}/third-party-system:
+  /competent-administration/{competent_administration_ipacode}/{competent_administration_code}/{competent_administration_version}/third-party-system:
     get:
       description: |
-        Recupero Sistema Ente Terzo di una specifica amministrazione competente di uno specifico modulo digitale
+        Recupero elenco Enti Terzi di una specifica amministrazione competente
 
       parameters:
         - in: path
@@ -663,11 +655,13 @@ paths:
 
       responses:
         "200":
-          description: Sistema Ente Terzo dell'amministrazione richiesta
+          description: Elenco sistema Ente Terzo dell'amministrazione richiesta
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SystemEntity"
+                type: array
+                items:
+                  $ref: "#/components/schemas/third_party_system"
 
           headers:
             Agid-JWT-Signature:
@@ -706,7 +700,7 @@ paths:
 
       responses:
         "200":
-          description: Sportello SUAP del comunerichiesto
+          description: Sportello SUAP del comune richiesto
           content:
             application/json:
               schema:
@@ -758,7 +752,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SystemEntity"
+                $ref: "#/components/schemas/FOSystemEntity"
 
           headers:
             Agid-JWT-Signature:
@@ -807,7 +801,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SystemEntity"
+                $ref: "#/components/schemas/BOSystemEntity"
 
           headers:
             Agid-JWT-Signature:
@@ -831,8 +825,6 @@ paths:
       tags:
         - Sportello SUAP
 
-
-
   /proceedings-by-municipality/{municipality_list}:
     get:
       description: |
@@ -842,7 +834,7 @@ paths:
           name: municipality_list
           description: elenco dei comuni per le quali la risorsa è richiesta
           required: true
-          schema: 
+          schema:
             type: array
             items:
               type: string
@@ -889,12 +881,12 @@ paths:
           name: id_proceeding_list
           description: elenco degli id per le quali la risorsa è richiesta
           required: true
-          schema: 
+          schema:
             type: array
             items:
               type: string
           style: simple
-    
+
 
 
       responses:
@@ -929,22 +921,21 @@ paths:
       tags:
         - Bulk
 
-
   /proceedings-attachments/{id_proceeding_list}:
     get:
       description: |
-         Recupero bulk elenco tuple {procedimento,allegato,obbligatorio}(tutte le versioni) per set di identificativi procedimento
+        Recupero bulk elenco tuple {procedimento,allegato,obbligatorio}(tutte le versioni) per set di identificativi procedimento
       parameters:
         - in: path
           name: id_proceeding_list
           description: elenco degli id per le quali la risorsa è richiesta
           required: true
-          schema: 
+          schema:
             type: array
             items:
               type: string
           style: simple
-    
+
       responses:
         "200":
           description: Elenco tuple {procedimento,allegato} richiesto
@@ -991,13 +982,13 @@ paths:
   /proceedings-administrative-regimes/{id_proceeding_list}:
     get:
       description: |
-        Recupero bulk elenco tuple {procedimenti,regimi amministrativi}(tutte le versioni) per set di identificativi procedimento
+        Recupero bulk elenco tuple {fattispecie, regimi amministrativi e tempi}(tutte le versioni) per set di identificativi procedimento
       parameters:
         - in: path
           name: id_proceeding_list
           description:  elenco degli id per le quali la risorsa è richiesta
           required: true
-          schema: 
+          schema:
             type: array
             items:
               type: string
@@ -1005,7 +996,7 @@ paths:
 
       responses:
         "200":
-          description: Elenco tuple {procedimenti,regimi amministrativi} richiesto
+          description: Elenco tuple {fattispecie, regimi amministrativi e tempi} richiesto
           content:
             application/json:
               schema:
@@ -1013,17 +1004,15 @@ paths:
                 items:
                   type: object
                   required:
-                    - proceeding
+                    - usecase-proceeding
                     - adminstrative-regime
                   properties:
-                    proceeding:
-                      $ref: "#/components/schemas/GenericEntity"
+                    usecase-proceeding:
+                      $ref: "#/components/schemas/UseCaseProceeding"
                     adminstrative-regime:
-                      $ref: "#/components/schemas/GenericEntity"
+                      $ref: "#/components/schemas/AdministrativeRegime"
                     times:
                       $ref: "#/components/schemas/Times"
-
-
 
           headers:
             Agid-JWT-Signature:
@@ -1056,12 +1045,12 @@ paths:
           name: id_proceeding_list
           description: elenco degli id per le quali la risorsa è richiesta
           required: true
-          schema: 
+          schema:
             type: array
             items:
               type: string
           style: simple
-    
+
       responses:
         "200":
           description: Elenco  tuple {procedimento,fattispecie} richiesto
@@ -1078,9 +1067,10 @@ paths:
                     proceeding:
                       $ref: "#/components/schemas/GenericEntity"
                     usecase-proceeding:
-                     $ref: "#/components/schemas/UseCaseProceeding"
-                  
-                  
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/UseCaseProceeding"
+
 
           headers:
             Agid-JWT-Signature:
@@ -1107,18 +1097,18 @@ paths:
   /usecase-proceedings-endoproceedings/{id_usecase_proceeding_list}:
     get:
       description: |
-         Recupero bulk tuple {fattispecie,fattispecie,obbligatorio}(tutte le versioni)(tutte le versioni) per set di identificativi procedimento
+        Recupero bulk tuple {fattispecie,fattispecie,obbligatorio}(tutte le versioni)(tutte le versioni) per set di identificativi procedimento
       parameters:
         - in: path
           name: id_usecase_proceeding_list
           description: elenco degli id per le quali la risorsa è richiesta
           required: true
-          schema: 
+          schema:
             type: array
             items:
               type: string
           style: simple
-    
+
 
 
       responses:
@@ -1173,12 +1163,12 @@ paths:
           name: id_proceeding_list
           description:  elenco degli id per le quali la risorsa è richiesta
           required: true
-          schema: 
+          schema:
             type: array
             items:
               type: string
           style: simple
-  
+
       responses:
         "200":
           description: Elenco tuple  {procedimenti,moduli digitali} richiesto
@@ -1190,14 +1180,12 @@ paths:
                   type: object
                   required:
                     - proceeding
-                    - attachment
+                    - form
                   properties:
                     proceeding:
                       $ref: "#/components/schemas/GenericEntity"
-                    attachment:
-                      $ref: "#/components/schemas/DocumentEntity"
-                    mandatary:
-                      type: boolean
+                    form:
+                      $ref: "#/components/schemas/GenericEntity"
 
 
           headers:
@@ -1231,12 +1219,12 @@ paths:
           name: id_form_list
           description:  elenco degli id per le quali la risorsa è richiesta
           required: true
-          schema: 
+          schema:
             type: array
             items:
               type: string
           style: simple
-    
+
 
 
       responses:
@@ -1255,8 +1243,8 @@ paths:
                     form:
                       $ref: "#/components/schemas/GenericEntity"
                     schematron:
-                      $ref: "#/components/schemas/DocumentEntity"
-                    
+                      $ref: "#/components/schemas/GenericEntity"
+
           headers:
             Agid-JWT-Signature:
               $ref: "#/components/headers/Agid-JWT-Signature"
@@ -1288,12 +1276,12 @@ paths:
           name: id_form_list
           description:  elenco degli id per le quali la risorsa è richiesta
           required: true
-          schema: 
+          schema:
             type: array
             items:
               type: string
           style: simple
-    
+
       responses:
         "200":
           description: Elenco tuple  {moduli digitali,xml schema} richiesto
@@ -1310,8 +1298,8 @@ paths:
                     form:
                       $ref: "#/components/schemas/GenericEntity"
                     xsd:
-                      $ref: "#/components/schemas/DocumentEntity"
-                    
+                      $ref: "#/components/schemas/GenericEntity"
+
           headers:
             Agid-JWT-Signature:
               $ref: "#/components/headers/Agid-JWT-Signature"
@@ -1334,22 +1322,21 @@ paths:
       tags:
         - Bulk
 
-
   /proceedings-competent-administrations/{id_proceeding_list}:
     get:
       description: |
-         Recupero bulk tuple {procedimento,amministrazione competente,comune}(tutte le versioni) per set di identificativi procedimento
+        Recupero bulk tuple {procedimento,amministrazione competente,comune}(tutte le versioni) per set di identificativi procedimento
       parameters:
         - in: path
           name: id_proceeding_list
           description: elenco degli id procedimento per le quali la risorsa è richiesta
           required: true
-          schema: 
+          schema:
             type: array
             items:
               type: string
           style: simple
-      
+
       responses:
         "200":
           description: Elenco tuple {procedimento,amministrazione competente,comune} richiesto
@@ -1393,16 +1380,16 @@ paths:
       tags:
         - Bulk
 
-  /proceedings-competent-administrations/{id_proceeding_list}/{municipality_list}:  
+  /proceedings-competent-administrations/{id_proceeding_list}/{municipality_list}:
     get:
       description: |
-         Recupero bulk tuple {procedimento,amministrazione competente,comune}(tutte le versioni)(tutte le versioni) per set di identificativi procedimento
+        Recupero bulk tuple {procedimento,amministrazione competente,comune}(tutte le versioni)(tutte le versioni) per set di identificativi procedimento
       parameters:
         - in: path
           name: id_proceeding_list
           description: elenco degli id procedimento per le quali la risorsa è richiesta
           required: true
-          schema: 
+          schema:
             type: array
             items:
               type: string
@@ -1411,7 +1398,7 @@ paths:
           name: municipality_list
           description: elenco dei comuni per le quali la risorsa è richiesta
           required: true
-          schema: 
+          schema:
             type: array
             items:
               type: string
@@ -1463,18 +1450,18 @@ paths:
   /competent-administrations-systems/{id_competent_administrations_list}:
     get:
       description: |
-         Recupero bulk tuple {amministrazione competente,sistema ente terzo}(tutte le versioni) per set di identificativi procedimento
+        Recupero bulk tuple {amministrazione competente,sistema ente terzo}(tutte le versioni) per set di identificativi procedimento
       parameters:
         - in: path
           name: id_competent_administrations_list
           description: elenco degli id per le quali la risorsa è richiesta
           required: true
-          schema: 
+          schema:
             type: array
             items:
               type: string
           style: simple
-      
+
       responses:
         "200":
           description: Elenco tuple {amministrazione competente,sistema ente terzo} richiesto
@@ -1489,10 +1476,10 @@ paths:
                     - third_party_system
                   properties:
                     primary:
-                      $ref: "#/components/schemas/GenericEntity"
+                      $ref: "#/components/schemas/ComponentEntity"
                     third_party_system:
-                      $ref: "#/components/schemas/SystemEntity"
-              
+                      $ref: "#/components/schemas/third_party_system"
+
           headers:
             Agid-JWT-Signature:
               $ref: "#/components/headers/Agid-JWT-Signature"
@@ -1515,7 +1502,6 @@ paths:
       tags:
         - Bulk
 
-
   /suaps-by-municipality/{municipality_list}:
     get:
       description: |
@@ -1525,7 +1511,7 @@ paths:
           name: municipality_list
           description: elenco dei comuni per le quali la risorsa è richiesta
           required: true
-          schema: 
+          schema:
             type: array
             items:
               type: string
@@ -1572,12 +1558,12 @@ paths:
           name: id_suap_list
           description: elenco degli id per le quali la risorsa è richiesta
           required: true
-          schema: 
+          schema:
             type: array
             items:
               type: string
           style: simple
-    
+
 
 
       responses:
@@ -1588,7 +1574,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/GenericEntity"
+                  $ref: "#/components/schemas/ComponentEntity"
 
           headers:
             Agid-JWT-Signature:
@@ -1612,25 +1598,21 @@ paths:
       tags:
         - Bulk
 
-
-  
-   
-
   /suaps-fo-systems/{id_suap_list}:
     get:
       description: |
-         Recupero bulk tuple {SUAP,sistema FrontOffice SUAP}(tutte le versioni) per set di identificativi SUAP
+        Recupero bulk tuple {SUAP,sistema FrontOffice SUAP}(tutte le versioni) per set di identificativi SUAP
       parameters:
         - in: path
           name: id_suap_list
           description: elenco degli id per le quali la risorsa è richiesta
           required: true
-          schema: 
+          schema:
             type: array
             items:
               type: string
           style: simple
-      
+
       responses:
         "200":
           description: Elenco tuple {SUAP,sistema FrontOffice SUAP} richiesto
@@ -1645,10 +1627,10 @@ paths:
                     - fo_system
                   properties:
                     primary:
-                      $ref: "#/components/schemas/GenericEntity"
-                    third_party_system:
-                      $ref: "#/components/schemas/SystemEntity"
-              
+                      $ref: "#/components/schemas/ComponentEntity"
+                    fo_system:
+                      $ref: "#/components/schemas/FOSystemEntity"
+
           headers:
             Agid-JWT-Signature:
               $ref: "#/components/headers/Agid-JWT-Signature"
@@ -1671,21 +1653,21 @@ paths:
       tags:
         - Bulk
 
-  /suaps-bo-systems/{id_suap_list}: 
+  /suaps-bo-systems/{id_suap_list}:
     get:
       description: |
-         Recupero bulk tuple {SUAP,sistema BackOffice SUAP}(tutte le versioni) per set di identificativi SUAP
+        Recupero bulk tuple {SUAP,sistema BackOffice SUAP}(tutte le versioni) per set di identificativi SUAP
       parameters:
         - in: path
           name: id_suap_list
           description: elenco degli id per le quali la risorsa è richiesta
           required: true
-          schema: 
+          schema:
             type: array
             items:
               type: string
           style: simple
-      
+
       responses:
         "200":
           description: Elenco tuple {SUAP,sistema BackOffice SUAP} richiesto
@@ -1700,10 +1682,10 @@ paths:
                     - bo_system
                   properties:
                     primary:
-                      $ref: "#/components/schemas/GenericEntity"
-                    third_party_system:
-                      $ref: "#/components/schemas/SystemEntity"
-              
+                      $ref: "#/components/schemas/ComponentEntity"
+                    bo_system:
+                      $ref: "#/components/schemas/BOSystemEntity"
+
           headers:
             Agid-JWT-Signature:
               $ref: "#/components/headers/Agid-JWT-Signature"
@@ -1728,7 +1710,7 @@ paths:
 
 components:
   responses:
-    
+
 
     BadRequest:
       description: Forma della richiesta non conforme alla specifica
@@ -1780,10 +1762,65 @@ components:
 
   schemas:
     AdministrationSchema:
-      $ref: https://raw.githubusercontent.com/AgID/suap-gt-specifiche/to_interoperabilita-protocols/to_interoperabilita/schema/administration-schema.yaml
+      description: Amministrazione compentente censita nel Catalogo SSU
+      type: object
+      required:
+        - ipacode
+        - officecode
+        - version
+        - description
+      properties:
+        ipacode:
+          title: codice IPA dell'amministrazione
+          type: string
+          minLength: 1
+        officecode:
+          title: codice dell'ufficio dell'amministrazione
+          type: string
+          minLength: 1
+        version:
+          title: versione dell'ufficio dell'amministrazione
+          type: string
+          pattern: "[0-9]{2}.[0-9]{2}.[0-9]{2}"
+        description:
+          title: descrizione dell'amministrazione
+          type: string
 
     Times:
-      $ref: https://raw.githubusercontent.com/AgID/suap-gt-specifiche/to_interoperabilita-protocols/to_interoperabilita/schema/times-schema.yaml
+      description: tempi amministrativi dell'istanza
+      type: object
+      required:
+        - max_gg_proc
+      properties:
+
+        max_gg_proc:
+          title: numero di giorni limite a partire da start entro cui l'istanza deve concludersi
+          type: integer
+          format: int32
+        max_gg_correction:
+          title: numero di giorni limite a partire da start per la correzione a valle di un controllo formale
+          type: integer
+          format: int32
+        max_gg_admissibility:
+          title: numero di giorni limite a partire da start per la verifica di ammissibilità
+          type: integer
+          format: int32
+        max_gg_int_req:
+          title: numero di giorni limite a partire da start per la richiesta di integrazione degli enti terzi
+          type: integer
+          format: int32
+        max_gg_int_resp:
+          title: numero di giorni limite a partire da start per integrazione del soggetto presentatore
+          type: integer
+          format: int32
+        max_gg_concl_send:
+          title: numero di giorni limite a partire da start per inoltro delle conclusioni degli enti terzi
+          type: integer
+          format: int32
+        max_gg_cdss_req:
+          title: numero di giorni limite a partire da start entro cui gli enti terzi possono richiedere conferenza di servizi sincrona
+          type: integer
+          format: int32
 
     Error:
       type: object
@@ -1819,6 +1856,31 @@ components:
         version: 1.0.0
         description: Entità generica con id,versione, descrizione
 
+    ComponentEntity:
+      description: struttura di risorsa generica con id,versione e descrizione
+      allOf:
+        - $ref: "#/components/schemas/GenericEntity"
+        - type: object
+          required:
+            - start
+            - end
+            - state
+          properties:
+            start:
+              title: data inizio intervallo di validità della versione
+              type: string
+              format: date
+            end:
+              title: data fine intervallo di validità della versione
+              type: string
+              format: date
+            state:
+              title: stato di validità della versione
+              type: string
+              enum:
+                - Active
+                - Not Active
+
     DocumentEntity:
       allOf:
         - $ref: "#/components/schemas/GenericEntity"
@@ -1835,8 +1897,8 @@ components:
         id: 1
         version: 1.0.0
         description: Entità id,versione, descrizione e tipo strutturato/non strutturato
-        type: structured 
-    
+        type: structured
+
     ResourceEntity:
       allOf:
         - $ref: "#/components/schemas/GenericEntity"
@@ -1868,25 +1930,62 @@ components:
         description: Entita id,versione, descrizione e riferimento telemantico sistema implementante
         telematic_ref: string
 
+    FOSystemEntity:
+      allOf:
+        - $ref: "#/components/schemas/ComponentEntity"
+        - type: object
+          required:
+            - e_service_to_bo
+            - e_service_to_cu
+          properties:
+            e_service_to_bo:
+              type: string
+            e_service_to_cu:
+              type: string
+
+    BOSystemEntity:
+      allOf:
+        - $ref: "#/components/schemas/ComponentEntity"
+        - type: object
+          required:
+            - e_service_to_fo
+            - e_service_to_et
+            - e_service_to_ri
+          properties:
+            e_service_to_fo:
+              type: string
+            e_service_to_et:
+              type: string
+            e_service_to_ri:
+              type: string
+
     Proceeding:
       description: procedimento amministrativo
       allOf:
         - $ref: "#/components/schemas/GenericEntity"
-      type: object
-      required:
-        - typology
-        - life_event
-        - territorial_scope
-      properties:
-        typology:
-          title: tipologia del procedimento
-          type: string
-        lifeevent:
-          title: evento della vita dell'attività afferente al procedimento
-          type: string
-        territorial_scope:
-          title: ambito territoriale del procedimento (codice istat a 8 cifre e 00000000 per Nazionale)
-          type: string
+        - type: object
+          required:
+            - typology
+            - lifeevent
+            - territorial_scope
+            - status
+          properties:
+            typology:
+              title: tipologia del procedimento
+              type: string
+            lifeevent:
+              title: evento della vita dell'attività afferente al procedimento
+              type: string
+            territorial_scope:
+              title: ambito territoriale del procedimento (codice istat a 6 cifre e 000000 per Nazionale)
+              type: string
+            status:
+              title: stato del procedimento (attivo, non attivo)
+              type: string
+              enum:
+                - Active
+                - Not Active
+
       example:
         id: 1
         version: 1.0.0
@@ -1915,8 +2014,53 @@ components:
         version: 1.0.0
         description: Entita  fattispecie procedimento
         proceeding_id: string
-        lifeeproceeding_versionvent: 1.0.0
+        proceeding_version: 1.0.0
         schematron_phase: phase_1
+
+    AdministrativeRegime:
+      description: Regimi amministrativi dei procedimenti
+      type: object
+      required:
+        - id
+        - version
+        - description
+      properties:
+        id:
+          title: regime amministrativo
+          type: string
+          enum:
+            - SCIA
+            - AUTORIZZAZIONE
+            - SILENZIO-ASSENSO
+            - COMUNICAZIONE
+        version:
+          title: version del regime amministrativo
+          type: string
+        description:
+          title: descrizione del regime amministrativo
+          type: string
+      example:
+        id: SCIA
+        version: 1.0.0
+        description: Entità regime amministrativo con id,versione, descrizione
+    third_party_system:
+      allOf:
+        - $ref: "#/components/schemas/SystemEntity"
+        - type: object
+          properties:
+            date_from:
+              type: string
+              format: date
+            date_to:
+              type: string
+              format: date
+      example:
+        id: 1
+        version: 1.0.0
+        description: Entita id,versione, descrizione e riferimento telemantico sistema implementante
+        telematic_ref: string
+        date_from: 2023-11-14
+        date_to: 2023-12-14
 
   headers:
     Agid-JWT-Signature:

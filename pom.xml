@@ -32,7 +32,7 @@
 			<organization>${project.organization.name}</organization>
 			<organizationUrl>${project.organization.url}</organizationUrl>
 			<roles>
-				<role>Tecnical Manager</role>
+				<role>Technical Manager</role>
 				<role>Developer</role>
 			</roles>
 		</developer>
@@ -48,7 +48,7 @@
     	<springdoc-version>1.7.0</springdoc-version>
 		<asciidoctor-maven-plugin.version>2.2.1</asciidoctor-maven-plugin.version>
 		<sonar-maven-plugin.version>3.10.0.2594</sonar-maven-plugin.version>
-		<openapi-generator-maven-plugin.version>6.0.0</openapi-generator-maven-plugin.version>
+		<openapi-generator-maven-plugin.version>6.6.0</openapi-generator-maven-plugin.version>
 		<jackson-databind-nullable-version>0.2.6</jackson-databind-nullable-version>
 		<jsr305.version>3.0.2</jsr305.version>
 		<swagger-annotations.version>2.2.18</swagger-annotations.version>
@@ -80,11 +80,6 @@
 		</dependency>
 		
 		<!--Librerie per codice autogenerato openapi -->
-		<dependency>
-			<groupId>org.openapitools</groupId>
-			<artifactId>jackson-databind-nullable</artifactId>
-			<version>${jackson-databind-nullable-version}</version>
-		</dependency>
         <dependency>
             <groupId>org.openapitools</groupId>
             <artifactId>openapi-generator-maven-plugin</artifactId>
@@ -105,6 +100,38 @@
 		    <groupId>io.swagger.core.v3</groupId>
 		    <artifactId>swagger-models</artifactId>
 		    <version>${swagger-annotations.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp</artifactId>
+			<version>4.12.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.11.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.gsonfire</groupId>
+			<artifactId>gson-fire</artifactId>
+			<version>1.9.0</version>
+		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-web-api</artifactId>
+			<version>8.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<version>2.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>logging-interceptor</artifactId>
+			<version>4.12.0</version>
 		</dependency>
 
 		<!-- Jakarta -->
@@ -162,19 +189,18 @@
 						<configuration>
 							<inputSpec>${project.basedir}/src/main/resources/openapi/bo_to_fo.yaml</inputSpec>
 							<generatorName>java</generatorName>
-							<library>resttemplate</library>
+							<!--<library>resttemplate</library>-->
 							<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>
 								<dateLibrary>java8</dateLibrary>
-								<library>resttemplate</library>
+								<!--<library>resttemplate</library>-->
 								<apiPackage>it.infocamere.suap.sufo.bo.api</apiPackage>
 								<modelPackage>it.infocamere.suap.sufo.bo.model</modelPackage>
 								<invokerPackage>it.infocamere.suap.sufo.bo.client</invokerPackage>
-                                <openApiNullable>false</openApiNullable>
-                                <useBeanValidation>false</useBeanValidation>
+                                <openApiNullable>true</openApiNullable>
+                                <useBeanValidation>true</useBeanValidation>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 								<useJakartaEe>false</useJakartaEe>
-								<serializableModel>true</serializableModel>
 							</configOptions>
 						</configuration>
 					</execution>
@@ -188,19 +214,18 @@
 						<configuration>
 							<inputSpec>${project.basedir}/src/main/resources/openapi/catalogo-ssu_to_fo.yaml</inputSpec>
 							<generatorName>java</generatorName>
-							<library>resttemplate</library>
+							<!--<library>resttemplate</library>-->
 							<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>
 								<dateLibrary>java8</dateLibrary>
-								<library>resttemplate</library>
+								<!--<library>resttemplate</library>-->
 								<apiPackage>it.infocamere.suap.sufo.cssu.api</apiPackage>
 								<modelPackage>it.infocamere.suap.sufo.cssu.model</modelPackage>
 								<invokerPackage>it.infocamere.suap.sufo.cssu.client</invokerPackage>
-                                <openApiNullable>false</openApiNullable>
-                                <useBeanValidation>false</useBeanValidation>
+                                <openApiNullable>true</openApiNullable>
+                                <useBeanValidation>true</useBeanValidation>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 								<useJakartaEe>false</useJakartaEe>
-								<serializableModel>true</serializableModel>
 							</configOptions>
 						</configuration>
 					</execution>
@@ -214,19 +239,18 @@
 						<configuration>
 							<inputSpec>${project.basedir}/src/main/resources/openapi/cu_to_fo.yaml</inputSpec>
 							<generatorName>java</generatorName>
-							<library>resttemplate</library>
+							<!--<library>resttemplate</library>-->
 							<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>
 								<dateLibrary>java8</dateLibrary>
-								<library>resttemplate</library>
+								<!--<library>resttemplate</library>-->
 								<apiPackage>it.infocamere.suap.sufo.cu.api</apiPackage>
 								<modelPackage>it.infocamere.suap.sufo.cu.model</modelPackage>
 								<invokerPackage>it.infocamere.suap.sufo.cu.client</invokerPackage>
-                                <openApiNullable>false</openApiNullable>
-                                <useBeanValidation>false</useBeanValidation>
+                                <openApiNullable>true</openApiNullable>
+                                <useBeanValidation>true</useBeanValidation>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 								<useJakartaEe>false</useJakartaEe>
-								<serializableModel>true</serializableModel>
 							</configOptions>
 						</configuration>
 					</execution>
@@ -243,18 +267,17 @@
 						<configuration>
 							<inputSpec>${project.basedir}/src/main/resources/openapi/catalogo-ssu_to_bo.yaml</inputSpec>
 							<generatorName>java</generatorName>
-							<library>resttemplate</library>
+							<!--<library>resttemplate</library>-->
 							<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>
 								<dateLibrary>java8</dateLibrary>
 								<apiPackage>it.infocamere.suap.sucr.cssu.api</apiPackage>
 								<modelPackage>it.infocamere.suap.sucr.cssu.model</modelPackage>
 								<invokerPackage>it.infocamere.suap.sucr.cssu.client</invokerPackage>
-                                <openApiNullable>false</openApiNullable>
-                                <useBeanValidation>false</useBeanValidation>
+                                <openApiNullable>true</openApiNullable>
+                                <useBeanValidation>true</useBeanValidation>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 								<useJakartaEe>false</useJakartaEe>
-								<serializableModel>true</serializableModel>
 							</configOptions>
 						</configuration>
 					</execution>
@@ -268,19 +291,18 @@
 						<configuration>
 							<inputSpec>${project.basedir}/src/main/resources/openapi/et_to_bo.yaml</inputSpec>
 							<generatorName>java</generatorName>
-							<library>resttemplate</library>
+							<!--<library>resttemplate</library>-->
 							<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>
 								<dateLibrary>java8</dateLibrary>
-								<library>resttemplate</library>
+								<!--<library>resttemplate</library>-->
 								<apiPackage>it.infocamere.suap.sucr.et.api</apiPackage>
 								<modelPackage>it.infocamere.suap.sucr.et.model</modelPackage>
 								<invokerPackage>it.infocamere.suap.sucr.et.client</invokerPackage>
-                                <openApiNullable>false</openApiNullable>
-                                <useBeanValidation>false</useBeanValidation>
+                                <openApiNullable>true</openApiNullable>
+                                <useBeanValidation>true</useBeanValidation>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 								<useJakartaEe>false</useJakartaEe>
-								<serializableModel>true</serializableModel>
 							</configOptions>
 						</configuration>
 					</execution>
@@ -294,19 +316,18 @@
 						<configuration>
 							<inputSpec>${project.basedir}/src/main/resources/openapi/fo_to_bo.yaml</inputSpec>
 							<generatorName>java</generatorName>
-							<library>resttemplate</library>
+							<!--<library>resttemplate</library>-->
 							<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>
 								<dateLibrary>java8</dateLibrary>
-								<library>resttemplate</library>
+								<!--<library>resttemplate</library>-->
 								<apiPackage>it.infocamere.suap.sucr.fo.api</apiPackage>
 								<modelPackage>it.infocamere.suap.sucr.fo.model</modelPackage>
 								<invokerPackage>it.infocamere.suap.sucr.fo.client</invokerPackage>
-                                <openApiNullable>false</openApiNullable>
-                                <useBeanValidation>false</useBeanValidation>
+                                <openApiNullable>true</openApiNullable>
+                                <useBeanValidation>true</useBeanValidation>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 								<useJakartaEe>false</useJakartaEe>
-								<serializableModel>true</serializableModel>
 							</configOptions>
 						</configuration>
 					</execution>
@@ -321,19 +342,18 @@
 						<configuration>
 							<inputSpec>${project.basedir}/src/main/resources/openapi/ri_to_bo.yaml</inputSpec>
 							<generatorName>java</generatorName>
-							<library>resttemplate</library>
+							<!--<library>resttemplate</library>-->
 							<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>
 								<dateLibrary>java8</dateLibrary>
-								<library>resttemplate</library>
+								<!--<library>resttemplate</library>-->
 								<apiPackage>it.infocamere.suap.sucr.ri.api</apiPackage>
 								<modelPackage>it.infocamere.suap.sucr.ri.model</modelPackage>
 								<invokerPackage>it.infocamere.suap.sucr.ri.client</invokerPackage>
-								<openApiNullable>false</openApiNullable>
-								<useBeanValidation>false</useBeanValidation>
+								<openApiNullable>true</openApiNullable>
+								<useBeanValidation>true</useBeanValidation>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 								<useJakartaEe>false</useJakartaEe>
-								<serializableModel>true</serializableModel>
 							</configOptions>
 						</configuration>
 					</execution>
@@ -350,20 +370,19 @@
 						<configuration>
 							<inputSpec>${project.basedir}/src/main/resources/openapi/catalogo-ssu_meta.yaml</inputSpec>
 							<generatorName>java</generatorName>
-							<library>resttemplate</library>
+							<!--<library>resttemplate</library>-->
 							<skipValidateSpec>true</skipValidateSpec>
 							<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>
 								<dateLibrary>java8</dateLibrary>
-								<library>resttemplate</library>
+								<!--<library>resttemplate</library>-->
 								<apiPackage>it.infocamere.suap.cssumeta.lib.api</apiPackage>
 								<modelPackage>it.infocamere.suap.cssumeta.lib.model</modelPackage>
 								<invokerPackage>it.infocamere.suap.cssumeta.lib.client</invokerPackage>
-								<openApiNullable>false</openApiNullable>
-								<useBeanValidation>false</useBeanValidation>
+								<openApiNullable>true</openApiNullable>
+								<useBeanValidation>true</useBeanValidation>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 								<useJakartaEe>false</useJakartaEe>
-								<serializableModel>true</serializableModel>
 							</configOptions>
 						</configuration>
 					</execution>
