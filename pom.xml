@@ -270,6 +270,7 @@
 							<inputSpec>${openapi.spec.path}/et_to_bo.yaml</inputSpec>
 							<generatorName>java</generatorName>
 							<library>resttemplate</library>
+							<templateResourcePath>${project.basedir}/src/main/resources/openapi/templates/javaSpring</templateResourcePath>
 							<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>
 								<dateLibrary>java8</dateLibrary>
@@ -277,11 +278,12 @@
 								<apiPackage>it.infocamere.suap.sucr.et.api</apiPackage>
 								<modelPackage>it.infocamere.suap.sucr.et.model</modelPackage>
 								<invokerPackage>it.infocamere.suap.sucr.et.client</invokerPackage>
-                                <openApiNullable>true</openApiNullable>
-                                <useBeanValidation>true</useBeanValidation>
+								<openApiNullable>true</openApiNullable>
+								<useBeanValidation>true</useBeanValidation>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 								<useJakartaEe>false</useJakartaEe>
 								<serializableModel>true</serializableModel>
+								<useOneOfInterfaces>true</useOneOfInterfaces>
 							</configOptions>
 						</configuration>
 					</execution>
@@ -296,6 +298,7 @@
 							<inputSpec>${openapi.spec.path}/fo_to_bo.yaml</inputSpec>
 							<generatorName>java</generatorName>
 							<library>resttemplate</library>
+							<templateResourcePath>${project.basedir}/src/main/resources/openapi/templates/javaSpring</templateResourcePath>
 							<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>
 								<dateLibrary>java8</dateLibrary>
@@ -303,11 +306,12 @@
 								<apiPackage>it.infocamere.suap.sucr.fo.api</apiPackage>
 								<modelPackage>it.infocamere.suap.sucr.fo.model</modelPackage>
 								<invokerPackage>it.infocamere.suap.sucr.fo.client</invokerPackage>
-                                <openApiNullable>true</openApiNullable>
-                                <useBeanValidation>true</useBeanValidation>
+								<openApiNullable>true</openApiNullable>
+								<useBeanValidation>true</useBeanValidation>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 								<useJakartaEe>false</useJakartaEe>
 								<serializableModel>true</serializableModel>
+								<useOneOfInterfaces>true</useOneOfInterfaces>
 							</configOptions>
 						</configuration>
 					</execution>
@@ -323,6 +327,7 @@
 							<inputSpec>${openapi.spec.path}/ri_to_bo.yaml</inputSpec>
 							<generatorName>java</generatorName>
 							<library>resttemplate</library>
+							<templateResourcePath>${project.basedir}/src/main/resources/openapi/templates/javaSpring</templateResourcePath>
 							<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>
 								<dateLibrary>java8</dateLibrary>
@@ -335,6 +340,7 @@
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 								<useJakartaEe>false</useJakartaEe>
 								<serializableModel>true</serializableModel>
+								<useOneOfInterfaces>true</useOneOfInterfaces>
 							</configOptions>
 						</configuration>
 					</execution>
