@@ -48,7 +48,7 @@
     	<springdoc-version>1.7.0</springdoc-version>
 		<asciidoctor-maven-plugin.version>2.2.1</asciidoctor-maven-plugin.version>
 		<sonar-maven-plugin.version>3.10.0.2594</sonar-maven-plugin.version>
-		<openapi-generator-maven-plugin.version>6.0.0</openapi-generator-maven-plugin.version>
+		<openapi-generator-maven-plugin.version>6.6.0</openapi-generator-maven-plugin.version>
 		<jackson-databind-nullable-version>0.2.6</jackson-databind-nullable-version>
 		<jsr305.version>3.0.2</jsr305.version>
 		<swagger-annotations.version>2.2.18</swagger-annotations.version>
