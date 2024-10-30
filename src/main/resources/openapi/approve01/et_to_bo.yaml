@@ -705,34 +705,36 @@ components:
                     - S512
 
         CdssNotifyMessage:
-            allOf:
-              - $ref: "#/components/schemas/NotifyMessage"
-              - type: object
-                required:
-                    - cdss_channel
-                    - cdss_convocation
-                properties:
-                    event:
-                        type: string
-                        enum:
-                            - cdss_convened
-                    mime_type:
-                        title: "indica il formato dei dati previsto per l'atto amministrativo"
-                        type: string
-                        minLength: 1
-                    cdss_admin_act_filename:
-                        title: "filename dell'atto amministrativo da allegare per la convocazione della Conferenza dei Servizi Sincrona"
-                        type: string
-                        minLength: 1
-                    cdss_channel:
-                        type: string
-                        title: "canale utilizzato per la convocazione della Conferenza dei Servizi Sincrona"
-                        minLength: 1
-                    cdss_convocation:
-                        title: "data della convocazione della Conferenza dei Servizi Sincrona"
-                        type: string
-                        format: date
-                        minLength: 1
+              type: object
+              required:
+                  - cdss_channel
+                  - cdss_convocation
+              properties:
+                  cui:
+                    $ref: "#/components/schemas/cui"
+                  instance_descriptor_version:
+                    type: string
+                  event:
+                      type: string
+                      enum:
+                          - cdss_convened
+                  mime_type:
+                      title: "indica il formato dei dati previsto per l'atto amministrativo"
+                      type: string
+                      minLength: 1
+                  cdss_admin_act_filename:
+                      title: "filename dell'atto amministrativo da allegare per la convocazione della Conferenza dei Servizi Sincrona"
+                      type: string
+                      minLength: 1
+                  cdss_channel:
+                      type: string
+                      title: "canale utilizzato per la convocazione della Conferenza dei Servizi Sincrona"
+                      minLength: 1
+                  cdss_convocation:
+                      title: "data della convocazione della Conferenza dei Servizi Sincrona"
+                      type: string
+                      format: date
+                      minLength: 1
                     
 
     headers:
