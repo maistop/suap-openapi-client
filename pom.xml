@@ -142,7 +142,7 @@
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<inputSpec>${project.basedir}/src/main/resources/openapi/approve01/ri_to_bo.yaml</inputSpec>
+							<inputSpec>${openapi.spec.path}/ri_to_bo.yaml</inputSpec>
 							<language>java</language>
 							<library>resttemplate</library>
 							<output>${project.build.directory}/generated-sources</output>
@@ -161,7 +161,7 @@
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<inputSpec>${project.basedir}/src/main/resources/openapi/approve01/fo_to_bo.yaml</inputSpec>
+							<inputSpec>${openapi.spec.path}/fo_to_bo.yaml</inputSpec>
 							<language>java</language>
 							<library>resttemplate</library>
 							<output>${project.build.directory}/generated-sources</output>
@@ -180,7 +180,7 @@
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<inputSpec>${project.basedir}/src/main/resources/openapi/approve01/et_to_bo.yaml</inputSpec>
+							<inputSpec>${openapi.spec.path}/et_to_bo.yaml</inputSpec>
 							<language>java</language>
 							<library>resttemplate</library>
 							<output>${project.build.directory}/generated-sources</output>
