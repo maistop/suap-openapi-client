@@ -57,7 +57,7 @@
 		<jakarta.annotation-api.version>2.0.0</jakarta.annotation-api.version>
 		<jakarta.servlet-api.version>5.0.0</jakarta.servlet-api.version>
 		<jakarta.validation-api.version>3.0.2</jakarta.validation-api.version>
-		<openapi.spec.path>${project.basedir}/src/main/resources/openapi/approve01</openapi.spec.path>
+		<openapi.spec.path>${project.basedir}/src/main/resources/openapi/approved01</openapi.spec.path>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -142,8 +142,6 @@
 				</configuration>
 			</plugin>
 			
-			
-			
 			<!-- Generazione del codice client OpenAPI -->
 			<!-- See https://openapi-generator.tech/docs/generators/java/ for config options -->
 			<plugin>
@@ -153,7 +151,7 @@
 				<executions>
 
 					<!-- Client di FrontOffice -->
-
+					<!--
 					<execution>
 						<id>bo_to_fo</id>
 						<phase>generate-sources</phase>
@@ -179,7 +177,6 @@
 							</configOptions>
 						</configuration>
 					</execution>
-
 					<execution>
 						<id>catalogo_to_fo</id>
 						<phase>generate-sources</phase>
@@ -205,7 +202,6 @@
 							</configOptions>
 						</configuration>
 					</execution>
-
 					<execution>
 						<id>cu_to_fo</id>
 						<phase>generate-sources</phase>
@@ -231,7 +227,7 @@
 							</configOptions>
 						</configuration>
 					</execution>
-
+					-->
 
 					<!-- Client di BackOffice -->
 					
@@ -259,7 +255,6 @@
 							</configOptions>
 						</configuration>
 					</execution>
-
 					<execution>
 						<id>et_to_bo</id>
 						<phase>generate-sources</phase>
@@ -280,14 +275,13 @@
 								<invokerPackage>it.infocamere.suap.sucr.et.client</invokerPackage>
 								<openApiNullable>true</openApiNullable>
 								<useBeanValidation>true</useBeanValidation>
-								<hideGenerationTimestamp>true</hideGenerationTimestamp>
+								<hideGenerationTimestamp>false</hideGenerationTimestamp>
 								<useJakartaEe>false</useJakartaEe>
 								<serializableModel>true</serializableModel>
 								<useOneOfInterfaces>true</useOneOfInterfaces>
 							</configOptions>
 						</configuration>
 					</execution>
-
 					<execution>
 						<id>fo_to_bo</id>
 						<phase>generate-sources</phase>
@@ -315,8 +309,6 @@
 							</configOptions>
 						</configuration>
 					</execution>
-
-					
 					<execution>
 						<id>ri_to_bo</id>
 						<phase>generate-sources</phase>
@@ -345,9 +337,8 @@
 						</configuration>
 					</execution>
 					
-					
 					<!-- Catalogo-ssu-metadati -->
-
+					<!--
 					<execution>
 						<id>catalogo-ssu_meta</id>
 						<phase>generate-sources</phase>
@@ -374,10 +365,9 @@
 							</configOptions>
 						</configuration>
 					</execution>
-
-
+					-->
 					<!-- Classificazione FDI -->
-
+					<!--
 					<execution>
 						<id>classificazione-fdi</id>
 						<phase>generate-sources</phase>
@@ -404,7 +394,7 @@
 							</configOptions>
 						</configuration>
 					</execution>
-					
+					-->
 				</executions>
 			</plugin>
 		</plugins>
