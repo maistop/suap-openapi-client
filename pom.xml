@@ -43,9 +43,9 @@
 		<reporting.encoding>UTF-8</reporting.encoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.build.timestamp.format>dd-MM-yy-HHmmss</maven.build.timestamp.format>
-	    <maven.compiler.source>${java.version}</maven.compiler.source>
-	    <maven.compiler.target>${java.version}</maven.compiler.target>
-    	<springdoc-version>1.7.0</springdoc-version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<springdoc-version>1.7.0</springdoc-version>
 		<asciidoctor-maven-plugin.version>2.2.1</asciidoctor-maven-plugin.version>
 		<sonar-maven-plugin.version>3.10.0.2594</sonar-maven-plugin.version>
 		<openapi-generator-maven-plugin.version>6.6.0</openapi-generator-maven-plugin.version>
@@ -79,22 +79,22 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-		
+
 		<!--Librerie per codice autogenerato openapi -->
 		<dependency>
 			<groupId>org.openapitools</groupId>
 			<artifactId>jackson-databind-nullable</artifactId>
 			<version>${jackson-databind-nullable-version}</version>
 		</dependency>
-        <dependency>
-            <groupId>org.openapitools</groupId>
-            <artifactId>openapi-generator-maven-plugin</artifactId>
-            <version>${openapi-generator-maven-plugin.version}</version>
-        </dependency>
 		<dependency>
-		  <groupId>com.google.code.findbugs</groupId>
-		  <artifactId>jsr305</artifactId>
-		  <version>${jsr305.version}</version>
+			<groupId>org.openapitools</groupId>
+			<artifactId>openapi-generator-maven-plugin</artifactId>
+			<version>${openapi-generator-maven-plugin.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.findbugs</groupId>
+			<artifactId>jsr305</artifactId>
+			<version>${jsr305.version}</version>
 		</dependency>
 		<!-- OpenAPI -->
 		<dependency>
@@ -103,9 +103,9 @@
 			<version>${swagger-annotations.version}</version>
 		</dependency>
 		<dependency>
-		    <groupId>io.swagger.core.v3</groupId>
-		    <artifactId>swagger-models</artifactId>
-		    <version>${swagger-annotations.version}</version>
+			<groupId>io.swagger.core.v3</groupId>
+			<artifactId>swagger-models</artifactId>
+			<version>${swagger-annotations.version}</version>
 		</dependency>
 
 		<!-- Jakarta -->
@@ -141,15 +141,15 @@
 					</image>
 				</configuration>
 			</plugin>
-			
-			
-			
+
+
+
 			<!-- Generazione del codice client OpenAPI -->
 			<!-- See https://openapi-generator.tech/docs/generators/java/ for config options -->
 			<plugin>
-			  <groupId>org.openapitools</groupId>
-			  <artifactId>openapi-generator-maven-plugin</artifactId>
-			  <version>${openapi-generator-maven-plugin.version}</version>
+				<groupId>org.openapitools</groupId>
+				<artifactId>openapi-generator-maven-plugin</artifactId>
+				<version>${openapi-generator-maven-plugin.version}</version>
 				<executions>
 
 					<!-- Client di FrontOffice -->
@@ -171,8 +171,8 @@
 								<apiPackage>it.infocamere.suap.sufo.bo.api</apiPackage>
 								<modelPackage>it.infocamere.suap.sufo.bo.model</modelPackage>
 								<invokerPackage>it.infocamere.suap.sufo.bo.client</invokerPackage>
-                                <openApiNullable>true</openApiNullable>
-                                <useBeanValidation>true</useBeanValidation>
+								<openApiNullable>true</openApiNullable>
+								<useBeanValidation>true</useBeanValidation>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 								<useJakartaEe>false</useJakartaEe>
 								<serializableModel>true</serializableModel>
@@ -197,8 +197,8 @@
 								<apiPackage>it.infocamere.suap.sufo.cssu.api</apiPackage>
 								<modelPackage>it.infocamere.suap.sufo.cssu.model</modelPackage>
 								<invokerPackage>it.infocamere.suap.sufo.cssu.client</invokerPackage>
-                                <openApiNullable>true</openApiNullable>
-                                <useBeanValidation>true</useBeanValidation>
+								<openApiNullable>true</openApiNullable>
+								<useBeanValidation>true</useBeanValidation>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 								<useJakartaEe>false</useJakartaEe>
 								<serializableModel>true</serializableModel>
@@ -223,8 +223,8 @@
 								<apiPackage>it.infocamere.suap.sufo.cu.api</apiPackage>
 								<modelPackage>it.infocamere.suap.sufo.cu.model</modelPackage>
 								<invokerPackage>it.infocamere.suap.sufo.cu.client</invokerPackage>
-                                <openApiNullable>true</openApiNullable>
-                                <useBeanValidation>true</useBeanValidation>
+								<openApiNullable>true</openApiNullable>
+								<useBeanValidation>true</useBeanValidation>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 								<useJakartaEe>false</useJakartaEe>
 								<serializableModel>true</serializableModel>
@@ -234,7 +234,7 @@
 
 
 					<!-- Client di BackOffice -->
-					
+
 					<execution>
 						<id>catalogo-ssu_to_bo</id>
 						<phase>generate-sources</phase>
@@ -251,8 +251,8 @@
 								<apiPackage>it.infocamere.suap.sucr.cssu.api</apiPackage>
 								<modelPackage>it.infocamere.suap.sucr.cssu.model</modelPackage>
 								<invokerPackage>it.infocamere.suap.sucr.cssu.client</invokerPackage>
-                                <openApiNullable>true</openApiNullable>
-                                <useBeanValidation>true</useBeanValidation>
+								<openApiNullable>true</openApiNullable>
+								<useBeanValidation>true</useBeanValidation>
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 								<useJakartaEe>false</useJakartaEe>
 								<serializableModel>true</serializableModel>
@@ -274,7 +274,6 @@
 							<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>
 								<dateLibrary>java8</dateLibrary>
-								<library>resttemplate</library>
 								<apiPackage>it.infocamere.suap.sucr.et.api</apiPackage>
 								<modelPackage>it.infocamere.suap.sucr.et.model</modelPackage>
 								<invokerPackage>it.infocamere.suap.sucr.et.client</invokerPackage>
@@ -302,7 +301,6 @@
 							<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>
 								<dateLibrary>java8</dateLibrary>
-								<library>resttemplate</library>
 								<apiPackage>it.infocamere.suap.sucr.fo.api</apiPackage>
 								<modelPackage>it.infocamere.suap.sucr.fo.model</modelPackage>
 								<invokerPackage>it.infocamere.suap.sucr.fo.client</invokerPackage>
@@ -316,7 +314,7 @@
 						</configuration>
 					</execution>
 
-					
+
 					<execution>
 						<id>ri_to_bo</id>
 						<phase>generate-sources</phase>
@@ -331,7 +329,6 @@
 							<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>
 								<dateLibrary>java8</dateLibrary>
-								<library>resttemplate</library>
 								<apiPackage>it.infocamere.suap.sucr.ri.api</apiPackage>
 								<modelPackage>it.infocamere.suap.sucr.ri.model</modelPackage>
 								<invokerPackage>it.infocamere.suap.sucr.ri.client</invokerPackage>
@@ -344,8 +341,8 @@
 							</configOptions>
 						</configuration>
 					</execution>
-					
-					
+
+
 					<!-- Catalogo-ssu-metadati -->
 
 					<execution>
@@ -362,7 +359,6 @@
 							<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>
 								<dateLibrary>java8</dateLibrary>
-								<library>resttemplate</library>
 								<apiPackage>it.infocamere.suap.cssumeta.lib.api</apiPackage>
 								<modelPackage>it.infocamere.suap.cssumeta.lib.model</modelPackage>
 								<invokerPackage>it.infocamere.suap.cssumeta.lib.client</invokerPackage>
@@ -392,7 +388,6 @@
 							<configOptions>
 								<sourceFolder>src/main/java</sourceFolder>
 								<dateLibrary>java8</dateLibrary>
-								<library>resttemplate</library>
 								<apiPackage>it.infocamere.suap.fdi.lib.api</apiPackage>
 								<modelPackage>it.infocamere.suap.fdi.lib.model</modelPackage>
 								<invokerPackage>it.infocamere.suap.fdi.lib.client</invokerPackage>
@@ -404,7 +399,7 @@
 							</configOptions>
 						</configuration>
 					</execution>
-					
+
 				</executions>
 			</plugin>
 		</plugins>
