@@ -186,7 +186,7 @@
 								<invokerPackage>it.infocamere.suap.sucr.et.client</invokerPackage>
 								<openApiNullable>true</openApiNullable>
 								<useBeanValidation>true</useBeanValidation>
-								<hideGenerationTimestamp>false</hideGenerationTimestamp>
+								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 								<useJakartaEe>false</useJakartaEe>
 								<serializableModel>true</serializableModel>
 								<useOneOfInterfaces>true</useOneOfInterfaces>
