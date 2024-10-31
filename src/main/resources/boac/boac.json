@@ -472,7 +472,7 @@
             "$ref": "#/components/schemas/Result_DettaglioRicercaBoac"
           },
           "payload": {
-            "type": "object"
+            "$ref": "#/components/schemas/suapAccreditatiList"
           }
         }
       },
@@ -486,7 +486,63 @@
             "type": "string"
           }
         }
-      }
+      },
+
+        "suapAccreditatiList": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "suap": {
+                "type": "object",
+                "properties": {
+                  "checkValidation": { "type": "boolean" },
+                  "idSuap": { "type": "integer" },
+                  "tipoSuap": { "type": "string" },
+                  "flagSciaModIntegrazione": { "type": "boolean" },
+                  "tipoDenominazioneSuap": { "type": "string" },
+                  "siglaProvincia": { "type": "string" },
+                  "nomeProvincia": { "type": "string" },
+                  "codiceCatastale": { "type": "string" },
+                  "nomeComune": { "type": "string" },
+                  "codiceIstat": { "type": "string" },
+                  "tsAttivazione": { "type": "string", "format": "date" },
+                  "indStatoSuap": { "type": "string" },
+                  "flagAltro": { "type": "boolean" },
+                  "flagSuapCamerale": { "type": "boolean" },
+                  "flagMonolite": { "type": "boolean" },
+                  "tipologiaSportello": { "type": "string" },
+                  "iSuap": { "type": "string" },
+                  "idResponsabile": { "type": "integer" },
+                  "idFirmatario": { "type": "integer" },
+                  "statoAccordion": { "type": "string" }
+                }
+              },
+              "recapitiSuap": {
+                "type": "object",
+                "properties": {
+                  "checkValidation": { "type": "boolean" },
+                  "idRecapitiSuap": { "type": "integer" },
+                  "siglaProvincia": { "type": "string" },
+                  "codiceCatastale": { "type": "string" },
+                  "codiceIstat": { "type": "string" },
+                  "frazione": { "type": "string" },
+                  "indirizzoPec": { "type": "string" },
+                  "toponimo": { "type": "string" },
+                  "presso": { "type": "string" },
+                  "tipoDenominazioneStradale": { "type": "string" },
+                  "numeroCivico": { "type": "string" },
+                  "indirizzoEmail": { "type": "string" },
+                  "sitoWebSuap": { "type": "string" },
+                  "sitoWebModulistica": { "type": "string" },
+                  "codiceAoo": { "type": "string" },
+                  "descrizioneAoo": { "type": "string" },
+                  "cap": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
     }
   }
 }
