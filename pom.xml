@@ -178,6 +178,35 @@
 			  <version>${openapi-generator-maven-plugin.version}</version>
 				<executions>
 
+					<!-- Client BOAC -->
+
+					<execution>
+						<id>boac_to_fo</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/src/main/resources/boac/boac.json</inputSpec>
+							<generatorName>java</generatorName>
+							<!--<library>resttemplate</library>-->
+							<configOptions>
+								<sourceFolder>src/main/java</sourceFolder>
+								<dateLibrary>java8</dateLibrary>
+								<!--<library>resttemplate</library>-->
+								<apiPackage>it.infocamere.suap.sufo.boac.api</apiPackage>
+								<modelPackage>it.infocamere.suap.sufo.boac.model</modelPackage>
+								<invokerPackage>it.infocamere.suap.sufo.boac.client</invokerPackage>
+								<openApiNullable>true</openApiNullable>
+								<useBeanValidation>true</useBeanValidation>
+								<hideGenerationTimestamp>true</hideGenerationTimestamp>
+								<useJakartaEe>false</useJakartaEe>
+							</configOptions>
+						</configuration>
+					</execution>
+
+					<!-- Client BOAC -->
+
 					<!-- Client di FrontOffice -->
 
 					<execution>

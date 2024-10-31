@@ -1,0 +1,492 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Doc Boac",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://boac-back-sv.ossuapsv.intra.infocamere.it",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/richiesta/lista/enti-accreditati": {
+      "post": {
+        "tags": [
+          "ListaEntiAccreditati"
+        ],
+        "summary": "Ricercare uno o più enti accreditati in funzione di alcuni filtri",
+        "operationId": "richiestaListaEntiAccreditati",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FiltersEnteTerzo_DettaglioEnteTerzoBoac"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "500": {
+            "description": "Risposta restituita in caso di errore non gestito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestReturnValue_DettaglioEnteTerzoBoac"
+                },
+                "examples": {
+                  "Errore di sistema": {
+                    "description": "Errore di sistema",
+                    "value": {
+                      "result": {
+                        "exitCode": "500",
+                        "text": "Si &egrave; verificato un errore di sistema"
+                      },
+                      "payload": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Ritorna la lista degli enti accreditati",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestReturnValue_DettaglioEnteTerzoBoac"
+                },
+                "examples": {
+                  "Ritorna la lista degli enti accreditati con successo": {
+                    "description": "Ritorna la lista degli enti accreditati con successo",
+                    "value": {
+                      "result": {
+                        "exitCode": "200",
+                        "text": "OK"
+                      },
+                      "payload": {
+                        "enteAccreditatiList": [
+                          {
+                            "denominazioneEnteTerzo": "string",
+                            "codiceIpa": "string",
+                            "codiceUo": "string",
+                            "codiceAoo": "string",
+                            "classi": [
+                              "string"
+                            ],
+                            "componenteInformaticaBackOffice": "string",
+                            "statoComponenteInformaticaBackOffice": "edit",
+                            "riferimentiTerritoriali": [
+                              {
+                                "provincia": "string",
+                                "comune": "string"
+                              }
+                            ],
+                            "firmatario": {
+                              "cognome": "string",
+                              "nome": "string",
+                              "codiceFiscale": "string",
+                              "qualifica": "string"
+                            },
+                            "recapitiEnteTerzo": {
+                              "provincia": "string",
+                              "comune": "string",
+                              "cap": "string",
+                              "frazione": "string",
+                              "indirizzo": "string",
+                              "presso": "string",
+                              "telefono": "string",
+                              "fax": "string",
+                              "codiceFiscale": "string",
+                              "indirizzoPec": "string",
+                              "indirizzoEmail": "string",
+                              "codiceAreaOrganizzativaOmogenea": "string",
+                              "descrizioneAreaOrganizzativaOmogenea": "string"
+                            },
+                            "responsabileTrasformazioneDigitale": {
+                              "cognome": "string",
+                              "nome": "string",
+                              "qualifica": "string",
+                              "telefono": "string",
+                              "indirizzoPec": "string",
+                              "indirizzoEmail": "string"
+                            },
+                            "statoEnteTerzo": {
+                              "statoEnteTerzo": "edit",
+                              "daOperatore": "string",
+                              "dataDiAggiornamento": "2024-10-18"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Richiesta non valida",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "Precondition Failed",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Risorsa non trovata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestReturnValue_DettaglioEnteTerzoBoac"
+                },
+                "examples": {
+                  "Errore di sistema": {
+                    "description": "Errore di sistema",
+                    "value": {
+                      "result": {
+                        "exitCode": "404",
+                        "text": "Not found"
+                      },
+                      "payload": null
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/richiesta/lista-suap-accreditati": {
+      "post": {
+        "tags": [
+          "ListaSuapAccreditati"
+        ],
+        "summary": "Ricercare uno o più suap accreditati in funzione di alcuni filtri",
+        "operationId": "richiestaListaSuapAccreditati",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Filters_DettaglioRicercaBoac"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "500": {
+            "description": "Risposta restituita in caso di errore non gestito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestReturnValue_DettaglioRicercaBoac"
+                },
+                "examples": {
+                  "Errore di sistema": {
+                    "description": "Errore di sistema",
+                    "value": {
+                      "result": {
+                        "exitCode": "500",
+                        "text": "Si &egrave; verificato un errore di sistema"
+                      },
+                      "payload": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Ritorna la lista dei suap accreditati",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestReturnValue_DettaglioRicercaBoac"
+                },
+                "examples": {
+                  "Ritorna la lista dei suap accreditati con successo": {
+                    "description": "Ritorna la lista dei suap accreditati con successo",
+                    "value": {
+                      "result": {
+                        "exitCode": "200",
+                        "text": "OK"
+                      },
+                      "payload": {
+                        "suapAccreditatiList": [
+                          {
+                            "suap": {
+                              "checkValidation": false,
+                              "idSuap": 0,
+                              "tipoSuap": "string",
+                              "flagSciaModIntegrazione": false,
+                              "tipoDenominazioneSuap": "string",
+                              "siglaProvincia": "string",
+                              "nomeProvincia": "string",
+                              "codiceCatastale": "string",
+                              "nomeComune": "string",
+                              "codiceIstat": "string",
+                              "tsAttivazione": "2024-06-12",
+                              "indStatoSuap": "string",
+                              "flagAltro": false,
+                              "flagSuapCamerale": true,
+                              "flagMonolite": false,
+                              "tipologiaSportello": "string",
+                              "iSuap": "string",
+                              "idResponsabile": 0,
+                              "idFirmatario": 0,
+                              "statoAccordion": "string"
+                            },
+                            "recapitiSuap": {
+                              "checkValidation": true,
+                              "idRecapitiSuap": 0,
+                              "siglaProvincia": "string",
+                              "codiceCatastale": "string",
+                              "codiceIstat": "string",
+                              "frazione": "string",
+                              "indirizzoPec": "string",
+                              "toponimo": "string",
+                              "presso": "string",
+                              "tipoDenominazioneStradale": "string",
+                              "numeroCivico": "string",
+                              "indirizzoEmail": "string",
+                              "sitoWebSuap": "string",
+                              "sitoWebModulistica": "string",
+                              "codiceAoo": "string",
+                              "descrizioneAoo": "string",
+                              "cap": "string",
+                              "numeroTelefono": "string",
+                              "idSuap": 0,
+                              "statoAccordion": "string"
+                            },
+                            "componentiInfo": {
+                              "compoInfoFo": "string",
+                              "compoInfoBo": "string",
+                              "compoInfoMo": "string",
+                              "statoCompoInfoFo": "string",
+                              "statoCompoInfoBo": "string"
+                            },
+                            "statoSuap": {
+                              "idSuap": 0,
+                              "statoSuap": "string",
+                              "dataAggiornamento": "2024-06-12",
+                              "operatore": "string"
+                            },
+                            "capofila": {
+                              "idSuap": 0,
+                              "codiceCatastale": "string"
+                            },
+                            "comuniAssociati": [
+                              {
+                                "idSuap": 0,
+                                "codiceCatastale": "string"
+                              }
+                            ],
+                            "firmatario": {
+                              "idFirmatario": 0,
+                              "nome": "string",
+                              "cognome": "string",
+                              "codiceFiscale": "string",
+                              "qualifica": "string"
+                            },
+                            "responsabile": {
+                              "idResponsabile": 0,
+                              "cognome": "string",
+                              "nome": "string",
+                              "codiceFiscale": "string",
+                              "qualifica": "string",
+                              "siglaProvincia": "string",
+                              "codiceCatastale": "string",
+                              "codiceIstat": "string",
+                              "cap": "string",
+                              "frazione": "string",
+                              "toponimo": "string",
+                              "denominazioneStradale": "string",
+                              "telefono": "string",
+                              "indirizzoMail": "string",
+                              "ncivico": "string"
+                            },
+                            "motivazioni": [
+                              {
+                                "titolo": "string",
+                                "testo": "string",
+                                "note": "string",
+                                "tipoMotivazione": "string"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Richiesta non valida",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "Precondition Failed",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Risorsa non trovata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestReturnValue_DettaglioRicercaBoac"
+                },
+                "examples": {
+                  "Errore di sistema": {
+                    "description": "Errore di sistema",
+                    "value": {
+                      "result": {
+                        "exitCode": "404",
+                        "text": "Not found"
+                      },
+                      "payload": null
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "FiltersEnteTerzo_DettaglioEnteTerzoBoac": {
+        "type": "object",
+        "properties": {
+          "codiceIpa": {
+            "type": "string"
+          },
+          "codiceUo": {
+            "type": "string"
+          },
+          "codiceAoo": {
+            "type": "string"
+          },
+          "ultimi": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "RestReturnValue_DettaglioEnteTerzoBoac": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "$ref": "#/components/schemas/Result_DettaglioEnteTerzoBoac"
+          },
+          "payload": {
+            "type": "object"
+          }
+        }
+      },
+      "Result_DettaglioEnteTerzoBoac": {
+        "type": "object",
+        "properties": {
+          "exitCode": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      },
+      "Filters_DettaglioRicercaBoac": {
+        "type": "object",
+        "properties": {
+          "identificativo": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "codiceCatastaleComune": {
+            "type": "string"
+          },
+          "codiceIstatComune": {
+            "type": "string"
+          },
+          "ultimi": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "RestReturnValue_DettaglioRicercaBoac": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "$ref": "#/components/schemas/Result_DettaglioRicercaBoac"
+          },
+          "payload": {
+            "type": "object"
+          }
+        }
+      },
+      "Result_DettaglioRicercaBoac": {
+        "type": "object",
+        "properties": {
+          "exitCode": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
